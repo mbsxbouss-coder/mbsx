@@ -242,8 +242,8 @@ const translations = {
     training: 'التدريب',
 
     heroTitle: 'صحافة البيانات',
-    heroTitleHighlight: 'إعلام يلهم
-وقرارات تُبنى',
+    heroTitleHighlight: `إعلام يلهم
+وقرارات تُبنى`,
     heroSubtitle: 'نحول البيانات المعقدة إلى قصص مؤثرة. نمكّن المؤسسات الإعلامية والاقتصادية برؤى قابلة للتنفيذ وتقارير مخصصة واستشارات استراتيجية.',
     exploreServices: 'استكشف الخدمات',
     requestConsultation: 'طلب استشارة',

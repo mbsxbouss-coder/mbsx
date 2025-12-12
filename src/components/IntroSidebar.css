@@ -76,6 +76,7 @@
 }
 
 .logo-mark {
+  direction: ltr;
   display: flex;
   align-items: baseline;
   gap: 0.125rem;

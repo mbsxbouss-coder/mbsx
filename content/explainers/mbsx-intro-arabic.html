@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBSx - وكالة صحافة البيانات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!--
+  ═══════════════════════════════════════════════════════════════
+  VOICEOVER SCRIPT (Arabic) - Total Duration: ~22 seconds
+  ═══════════════════════════════════════════════════════════════
+
+  [0:00-0:03] HOOK:
+  "في عالم يغرق بالبيانات..."
+
+  [0:03-0:06] PROBLEM:
+  "من يستطيع تحويلها إلى قصص؟"
+
+  [0:06-0:09] REVEAL:
+  "MBSx - وكالة صحافة البيانات"
+
+  [0:09-0:13] VALUE PROPOSITION:
+  "نحول الأرقام المعقدة إلى قصص مؤثرة تصنع الفرق"
+
+  [0:13-0:17] SERVICES:
+  "تقارير احترافية... لوحات تفاعلية... استشارات استراتيجية... تدريب متخصص"
+
+  [0:17-0:20] STATS:
+  "أكثر من خمسمئة تقرير... لأكثر من مئة وخمسين مؤسسة"
+
+  [0:20-0:22] CTA:
+  "MBSx - حيث البيانات تروي القصص"
+
+  ═══════════════════════════════════════════════════════════════
+  ELEVENLABS VOICE: Arabic Male (Adam or custom Arabic voice)
+  SETTINGS: Stability 0.45 | Clarity 0.78 | Style 0.25
+  ═══════════════════════════════════════════════════════════════
+  -->
+  <style>
+    :root {
+      /* MBSx Dark Theme - Editorial Style */
+      --bg-primary: #0A0E14;
+      --bg-secondary: #12181F;
+      --bg-tertiary: #1A222C;
+      --bg-card: #151C25;
+
+      --text-primary: #F5F5F3;
+      --text-secondary: #C5CAD1;
+      --text-tertiary: #8A94A3;
+      --text-muted: #5C6778;
+
+      --accent-gold: #D4AF37;
+      --accent-gold-light: #F0D56C;
+      --accent-gold-dark: #B8962E;
+      --accent-navy: #0A1628;
+      --accent-blue: #1E3A5F;
+
+      --border-light: rgba(255, 255, 255, 0.06);
+      --border-medium: rgba(255, 255, 255, 0.12);
+
+      --shadow-glow: 0 0 60px rgba(212, 175, 55, 0.2);
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-arabic: 'Noto Kufi Arabic', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: #050608;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: var(--font-arabic);
+    }
+
+    .container {
+      width: 1080px;
+      height: 1920px;
+      transform: scale(0.45);
+      transform-origin: center;
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Editorial Grid Pattern */
+    .editorial-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border-light) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    /* Floating Orbs - MBSx Style */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .orb-gold {
+      width: 500px;
+      height: 500px;
+      background: var(--accent-gold);
+      top: -10%;
+      left: -15%;
+      animation: orb-float-1 25s ease-in-out infinite;
+    }
+
+    .orb-blue {
+      width: 400px;
+      height: 400px;
+      background: var(--accent-blue);
+      bottom: 10%;
+      right: -10%;
+      animation: orb-float-2 20s ease-in-out infinite;
+    }
+
+    .orb-gold-small {
+      width: 300px;
+      height: 300px;
+      background: var(--accent-gold-dark);
+      top: 50%;
+      right: 20%;
+      animation: orb-float-3 18s ease-in-out infinite;
+    }
+
+    @keyframes orb-float-1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, 30px) scale(1.1); }
+      66% { transform: translate(-30px, -20px) scale(0.95); }
+    }
+
+    @keyframes orb-float-2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-40px, -30px) scale(1.05); }
+    }
+
+    @keyframes orb-float-3 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, 40px); }
+    }
+
+    /* Decorative Lines */
+    .deco-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .deco-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+      opacity: 0.3;
+    }
+
+    .deco-line-1 { top: 15%; width: 60%; right: 20%; }
+    .deco-line-2 { top: 85%; width: 40%; right: 30%; }
+    .deco-line-3 { top: 50%; width: 30%; right: 0; }
+
+    /* Phases */
+    .phase {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 80px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    .phase.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Phase 1: Hook */
+    .phase-hook .hook-text {
+      font-size: 68px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .phase-hook .hook-highlight {
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    /* Phase 2: Problem */
+    .phase-problem .problem-text {
+      font-size: 72px;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: center;
+      line-height: 1.4;
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    .phase-problem .cursor {
+      display: inline-block;
+      width: 4px;
+      height: 70px;
+      background: var(--accent-gold);
+      margin-right: 8px;
+      animation: cursor-blink 0.8s ease-in-out infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Phase 3: Brand Reveal */
+    .phase-brand {
+      text-align: center;
+    }
+
+    .phase-brand .brand-logo {
+      font-family: var(--font-body);
+      font-size: 200px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -6px;
+      opacity: 0;
+      transform: scale(0.5);
+      text-shadow: var(--shadow-glow);
+    }
+
+    .phase-brand .brand-logo span {
+      color: var(--accent-gold);
+    }
+
+    .phase-brand .brand-divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+      margin: 40px auto;
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .phase-brand .brand-tagline {
+      font-size: 52px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* Phase 4: Value */
+    .phase-value .value-text {
+      font-size: 56px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-align: center;
+      line-height: 1.6;
+      max-width: 900px;
+      opacity: 0;
+    }
+
+    .phase-value .value-highlight {
+      color: var(--accent-gold);
+      position: relative;
+    }
+
+    .phase-value .value-highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      right: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent-gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease 0.3s;
+    }
+
+    .phase-value.active .value-highlight::after {
+      transform: scaleX(1);
+    }
+
+    /* Phase 5: Services */
+    .phase-services .services-title {
+      font-size: 42px;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-bottom: 60px;
+      opacity: 0;
+    }
+
+    .phase-services .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .phase-services .service-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 40px 35px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.4s ease;
+    }
+
+    .phase-services .service-item:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-4px);
+    }
+
+    .phase-services .service-number {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+    }
+
+    .phase-services .service-name {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Phase 6: Stats */
+    .phase-stats .stats-container {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .phase-stats .stat-item {
+      text-align: center;
+      opacity: 0;
+      transform: translateX(50px);
+    }
+
+    .phase-stats .stat-number {
+      font-family: var(--font-display);
+      font-size: 160px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .phase-stats .stat-number .counter {
+      background: linear-gradient(135deg, var(--accent-gold-light) 0%, var(--accent-gold) 50%, var(--accent-gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .phase-stats .stat-plus {
+      font-size: 100px;
+      color: var(--accent-gold);
+    }
+
+    .phase-stats .stat-label {
+      font-size: 38px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-top: 15px;
+    }
+
+    /* Phase 7: CTA */
+    .phase-cta {
+      text-align: center;
+    }
+
+    .phase-cta .cta-brand {
+      font-family: var(--font-body);
+      font-size: 180px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -5px;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    .phase-cta .cta-brand span {
+      color: var(--accent-gold);
+    }
+
+    .phase-cta .cta-tagline {
+      font-size: 48px;
+      font-weight: 500;
+      color: var(--accent-gold);
+      margin-top: 50px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .phase-cta .cta-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      pointer-events: none;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      position: absolute;
+      bottom: 60px;
+      right: 80px;
+      left: 80px;
+      height: 4px;
+      background: var(--border-light);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-gold-dark), var(--accent-gold), var(--accent-gold-light));
+      border-radius: 2px;
+      transition: width 0.1s linear;
+    }
+
+    /* Phase Indicator */
+    .phase-indicator {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+    }
+
+    .phase-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border-medium);
+      transition: all 0.3s ease;
+    }
+
+    .phase-dot.active {
+      background: var(--accent-gold);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+    }
+
+    .phase-dot.completed {
+      background: var(--accent-gold-dark);
+    }
+
+    /* Animations */
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scale-in {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes scale-x {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes slide-in-right {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.2); }
+      50% { box-shadow: 0 0 80px rgba(212, 175, 55, 0.4); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <!-- Background Elements -->
+    <div class="editorial-grid" id="editorialGrid"></div>
+    <div class="orb orb-gold" id="orbGold"></div>
+    <div class="orb orb-blue" id="orbBlue"></div>
+    <div class="orb orb-gold-small" id="orbGoldSmall"></div>
+
+    <div class="deco-lines" id="decoLines">
+      <div class="deco-line deco-line-1"></div>
+      <div class="deco-line deco-line-2"></div>
+      <div class="deco-line deco-line-3"></div>
+    </div>
+
+    <!-- Phase Indicator -->
+    <div class="phase-indicator" id="phaseIndicator">
+      <div class="phase-dot" data-phase="0"></div>
+      <div class="phase-dot" data-phase="1"></div>
+      <div class="phase-dot" data-phase="2"></div>
+      <div class="phase-dot" data-phase="3"></div>
+      <div class="phase-dot" data-phase="4"></div>
+      <div class="phase-dot" data-phase="5"></div>
+      <div class="phase-dot" data-phase="6"></div>
+    </div>
+
+    <!-- Phase 1: Hook -->
+    <div class="phase phase-hook" id="phase0">
+      <div class="hook-text" id="hookText">
+        في عالم يغرق بـ<span class="hook-highlight">البيانات</span>...
+      </div>
+    </div>
+
+    <!-- Phase 2: Problem -->
+    <div class="phase phase-problem" id="phase1">
+      <div class="problem-text" id="problemText">
+        <span class="cursor"></span>
+        <span id="typingText"></span>
+      </div>
+    </div>
+
+    <!-- Phase 3: Brand Reveal -->
+    <div class="phase phase-brand" id="phase2">
+      <div class="brand-logo" id="brandLogo">MBS<span>x</span></div>
+      <div class="brand-divider" id="brandDivider"></div>
+      <div class="brand-tagline" id="brandTagline">وكالة صحافة البيانات</div>
+    </div>
+
+    <!-- Phase 4: Value Proposition -->
+    <div class="phase phase-value" id="phase3">
+      <div class="value-text" id="valueText">
+        نحول <span class="value-highlight">الأرقام المعقدة</span>
+        <br>إلى <span class="value-highlight">قصص مؤثرة</span> تصنع الفرق
+      </div>
+    </div>
+
+    <!-- Phase 5: Services -->
+    <div class="phase phase-services" id="phase4">
+      <div class="services-title" id="servicesTitle">خدماتنا</div>
+      <div class="services-grid">
+        <div class="service-item" id="service0">
+          <div class="service-number">01</div>
+          <div class="service-name">تقارير احترافية</div>
+        </div>
+        <div class="service-item" id="service1">
+          <div class="service-number">02</div>
+          <div class="service-name">لوحات تفاعلية</div>
+        </div>
+        <div class="service-item" id="service2">
+          <div class="service-number">03</div>
+          <div class="service-name">استشارات استراتيجية</div>
+        </div>
+        <div class="service-item" id="service3">
+          <div class="service-number">04</div>
+          <div class="service-name">تدريب متخصص</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 6: Stats -->
+    <div class="phase phase-stats" id="phase5">
+      <div class="stats-container">
+        <div class="stat-item" id="stat0">
+          <div class="stat-number">
+            <span class="counter" id="counter0">0</span>
+            <span class="stat-plus">+</span>
+          </div>
+          <div class="stat-label">تقرير تم تسليمه</div>
+        </div>
+        <div class="stat-item" id="stat1">
+          <div class="stat-number">
+            <span class="counter" id="counter1">0</span>
+            <span class="stat-plus">+</span>
+          </div>
+          <div class="stat-label">مؤسسة شريكة</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 7: CTA -->
+    <div class="phase phase-cta" id="phase6">
+      <div class="cta-glow" id="ctaGlow"></div>
+      <div class="cta-brand" id="ctaBrand">MBS<span>x</span></div>
+      <div class="cta-tagline" id="ctaTagline">حيث البيانات تروي القصص</div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <script>
+    // Timeline Configuration (milliseconds)
+    const TIMELINE = {
+      totalDuration: 22000,
+      phases: [
+        { id: 0, start: 0, end: 3000, name: 'hook' },
+        { id: 1, start: 3000, end: 6000, name: 'problem' },
+        { id: 2, start: 6000, end: 9000, name: 'brand' },
+        { id: 3, start: 9000, end: 13000, name: 'value' },
+        { id: 4, start: 13000, end: 17000, name: 'services' },
+        { id: 5, start: 17000, end: 20000, name: 'stats' },
+        { id: 6, start: 20000, end: 22000, name: 'cta' }
+      ]
+    };
+
+    let startTime = null;
+    let currentPhase = -1;
+    let animationFrame = null;
+
+    // Utility Functions
+    function animateElement(element, properties, duration = 600, delay = 0) {
+      setTimeout(() => {
+        element.style.transition = `all ${duration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+        Object.assign(element.style, properties);
+      }, delay);
+    }
+
+    function animateCounter(element, target, duration = 1500) {
+      const startTime = performance.now();
+      const startValue = 0;
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        element.textContent = Math.floor(startValue + (target - startValue) * easeOut);
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    function typeText(element, text, speed = 60) {
+      let i = 0;
+      element.textContent = '';
+      const interval = setInterval(() => {
+        element.textContent = text.slice(0, i + 1);
+        i++;
+        if (i >= text.length) {
+          clearInterval(interval);
+        }
+      }, speed);
+    }
+
+    function updatePhaseIndicator(phaseId) {
+      document.querySelectorAll('.phase-dot').forEach((dot, index) => {
+        dot.classList.remove('active', 'completed');
+        if (index < phaseId) {
+          dot.classList.add('completed');
+        } else if (index === phaseId) {
+          dot.classList.add('active');
+        }
+      });
+    }
+
+    // Phase Animations
+    function playPhase0() {
+      const phase = document.getElementById('phase0');
+      phase.classList.add('active');
+
+      // Show background elements
+      document.getElementById('editorialGrid').style.opacity = '0.3';
+      document.getElementById('orbGold').style.opacity = '0.12';
+      document.getElementById('decoLines').style.opacity = '1';
+
+      // Animate hook text
+      animateElement(document.getElementById('hookText'), {
+        opacity: '1',
+        transform: 'translateY(0)'
+      }, 800, 300);
+    }
+
+    function playPhase1() {
+      document.getElementById('phase0').classList.remove('active');
+      const phase = document.getElementById('phase1');
+      phase.classList.add('active');
+
+      // Type the problem text
+      setTimeout(() => {
+        typeText(document.getElementById('typingText'), 'من يستطيع تحويلها إلى قصص؟', 70);
+        document.getElementById('problemText').style.opacity = '1';
+        document.getElementById('problemText').style.transform = 'scale(1)';
+        document.getElementById('problemText').style.transition = 'all 0.5s ease';
+      }, 300);
+    }
+
+    function playPhase2() {
+      document.getElementById('phase1').classList.remove('active');
+      const phase = document.getElementById('phase2');
+      phase.classList.add('active');
+
+      // Show more orbs
+      document.getElementById('orbBlue').style.opacity = '0.1';
+      document.getElementById('orbGoldSmall').style.opacity = '0.08';
+
+      // Brand logo
+      animateElement(document.getElementById('brandLogo'), {
+        opacity: '1',
+        transform: 'scale(1)'
+      }, 700, 200);
+
+      // Divider
+      setTimeout(() => {
+        const divider = document.getElementById('brandDivider');
+        divider.style.opacity = '1';
+        divider.style.transform = 'scaleX(1)';
+        divider.style.transition = 'all 0.5s ease';
+      }, 600);
+
+      // Tagline
+      animateElement(document.getElementById('brandTagline'), {
+        opacity: '1',
+        transform: 'translateY(0)'
+      }, 600, 900);
+    }
+
+    function playPhase3() {
+      document.getElementById('phase2').classList.remove('active');
+      const phase = document.getElementById('phase3');
+      phase.classList.add('active');
+
+      animateElement(document.getElementById('valueText'), {
+        opacity: '1'
+      }, 800, 300);
+    }
+
+    function playPhase4() {
+      document.getElementById('phase3').classList.remove('active');
+      const phase = document.getElementById('phase4');
+      phase.classList.add('active');
+
+      // Services title
+      animateElement(document.getElementById('servicesTitle'), {
+        opacity: '1'
+      }, 500, 100);
+
+      // Service cards with stagger
+      for (let i = 0; i < 4; i++) {
+        animateElement(document.getElementById(`service${i}`), {
+          opacity: '1',
+          transform: 'translateY(0)'
+        }, 500, 300 + i * 150);
+      }
+    }
+
+    function playPhase5() {
+      document.getElementById('phase4').classList.remove('active');
+      const phase = document.getElementById('phase5');
+      phase.classList.add('active');
+
+      // First stat
+      setTimeout(() => {
+        document.getElementById('stat0').style.opacity = '1';
+        document.getElementById('stat0').style.transform = 'translateX(0)';
+        document.getElementById('stat0').style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        animateCounter(document.getElementById('counter0'), 500, 1200);
+      }, 200);
+
+      // Second stat
+      setTimeout(() => {
+        document.getElementById('stat1').style.opacity = '1';
+        document.getElementById('stat1').style.transform = 'translateX(0)';
+        document.getElementById('stat1').style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        animateCounter(document.getElementById('counter1'), 150, 1200);
+      }, 800);
+    }
+
+    function playPhase6() {
+      document.getElementById('phase5').classList.remove('active');
+      const phase = document.getElementById('phase6');
+      phase.classList.add('active');
+
+      // Glow effect
+      setTimeout(() => {
+        document.getElementById('ctaGlow').style.transform = 'translate(-50%, -50%) scale(1)';
+        document.getElementById('ctaGlow').style.transition = 'transform 1s ease';
+      }, 100);
+
+      // Brand
+      animateElement(document.getElementById('ctaBrand'), {
+        opacity: '1',
+        transform: 'scale(1)'
+      }, 700, 200);
+
+      // Tagline
+      animateElement(document.getElementById('ctaTagline'), {
+        opacity: '1',
+        transform: 'translateY(0)'
+      }, 600, 700);
+    }
+
+    // Main Animation Loop
+    function animate(currentTime) {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+
+      // Update progress bar
+      const progress = Math.min(elapsed / TIMELINE.totalDuration, 1);
+      document.getElementById('progressFill').style.width = `${progress * 100}%`;
+
+      // Check for phase changes
+      TIMELINE.phases.forEach(phase => {
+        if (elapsed >= phase.start && elapsed < phase.start + 50 && currentPhase !== phase.id) {
+          currentPhase = phase.id;
+          updatePhaseIndicator(phase.id);
+
+          switch(phase.id) {
+            case 0: playPhase0(); break;
+            case 1: playPhase1(); break;
+            case 2: playPhase2(); break;
+            case 3: playPhase3(); break;
+            case 4: playPhase4(); break;
+            case 5: playPhase5(); break;
+            case 6: playPhase6(); break;
+          }
+        }
+      });
+
+      if (elapsed < TIMELINE.totalDuration) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    }
+
+    // Reset and Restart
+    function resetAnimation() {
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+      startTime = null;
+      currentPhase = -1;
+
+      // Reset all phases
+      document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+
+      // Reset background elements
+      document.getElementById('editorialGrid').style.opacity = '0';
+      document.getElementById('orbGold').style.opacity = '0';
+      document.getElementById('orbBlue').style.opacity = '0';
+      document.getElementById('orbGoldSmall').style.opacity = '0';
+      document.getElementById('decoLines').style.opacity = '0';
+
+      // Reset phase 0
+      document.getElementById('hookText').style.cssText = 'opacity: 0; transform: translateY(30px);';
+
+      // Reset phase 1
+      document.getElementById('problemText').style.cssText = 'opacity: 0; transform: scale(0.9);';
+      document.getElementById('typingText').textContent = '';
+
+      // Reset phase 2
+      document.getElementById('brandLogo').style.cssText = 'opacity: 0; transform: scale(0.5);';
+      document.getElementById('brandDivider').style.cssText = 'opacity: 0; transform: scaleX(0);';
+      document.getElementById('brandTagline').style.cssText = 'opacity: 0; transform: translateY(20px);';
+
+      // Reset phase 3
+      document.getElementById('valueText').style.opacity = '0';
+
+      // Reset phase 4
+      document.getElementById('servicesTitle').style.opacity = '0';
+      for (let i = 0; i < 4; i++) {
+        document.getElementById(`service${i}`).style.cssText = 'opacity: 0; transform: translateY(40px);';
+      }
+
+      // Reset phase 5
+      document.getElementById('stat0').style.cssText = 'opacity: 0; transform: translateX(50px);';
+      document.getElementById('stat1').style.cssText = 'opacity: 0; transform: translateX(50px);';
+      document.getElementById('counter0').textContent = '0';
+      document.getElementById('counter1').textContent = '0';
+
+      // Reset phase 6
+      document.getElementById('ctaGlow').style.transform = 'translate(-50%, -50%) scale(0)';
+      document.getElementById('ctaBrand').style.cssText = 'opacity: 0; transform: scale(0.8);';
+      document.getElementById('ctaTagline').style.cssText = 'opacity: 0; transform: translateY(20px);';
+
+      // Reset progress
+      document.getElementById('progressFill').style.width = '0%';
+      document.querySelectorAll('.phase-dot').forEach(d => d.classList.remove('active', 'completed'));
+
+      // Restart after short delay
+      setTimeout(() => {
+        animationFrame = requestAnimationFrame(animate);
+      }, 300);
+    }
+
+    // Initialize
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        animationFrame = requestAnimationFrame(animate);
+      }, 500);
+    });
+
+    // Click to restart
+    document.getElementById('container').addEventListener('click', resetAnimation);
+  </script>
+</body>
+</html>

@@ -282,10 +282,14 @@
 
   .nav-items {
     flex-direction: row;
+    flex-wrap: wrap;
     position: absolute;
     bottom: calc(100% + 0.5rem);
     left: 0;
+    right: auto;
+    max-width: calc(100vw - 2rem);
     transform: translateY(10px) scale(0.95);
+    justify-content: flex-start;
   }
 
   .floating-nav.rtl .nav-items {
@@ -299,6 +303,8 @@
 
   .nav-item {
     transform: translateY(10px);
+    width: 40px;
+    height: 40px;
   }
 
   .floating-nav.expanded .nav-item {
@@ -327,5 +333,11 @@
   .nav-language {
     flex-direction: row;
     gap: 0.125rem;
+  }
+
+  .lang-btn {
+    width: 32px;
+    height: 26px;
+    font-size: 0.625rem;
   }
 }

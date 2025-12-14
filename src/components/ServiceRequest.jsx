@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useLanguage } from '../App'
-import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
+import { requestsService } from '../services'
+import { useSubmitGuard } from '../hooks/useSubmitGuard'
+import { useFormValidation } from '../hooks/useFormValidation'
+import { serviceRequestSchema } from '../validation/schemas'
 import './ServiceRequest.css'
 
 const ServiceRequest = () => {
@@ -17,7 +20,8 @@ const ServiceRequest = () => {
     email: '',
     phone: ''
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { isSubmitting, guardedSubmit } = useSubmitGuard()
+  const { errors, validate, clearError } = useFormValidation(serviceRequestSchema)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState('')
 
@@ -42,30 +46,37 @@ const ServiceRequest = () => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
     setError('')
+    clearError(name)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsSubmitting(true)
     setError('')
 
-    try {
-      const { error: insertError } = await supabase
-        .from('service_requests')
-        .insert([{
-          user_id: user?.id || null,
-          institution_name: formData.institutionName,
-          sector: formData.sector,
-          service_type: formData.serviceType,
-          description: formData.description,
-          email: formData.email,
-          phone: formData.phone || null
-        }])
+    // Validate form data
+    const validationResult = validate(formData)
+    if (!validationResult.success) {
+      return
+    }
 
-      if (insertError) throw insertError
+    const result = await guardedSubmit(async () => {
+      return await requestsService.createServiceRequest({
+        user_id: user?.id || null,
+        institution_name: formData.institutionName,
+        sector: formData.sector,
+        service_type: formData.serviceType,
+        description: formData.description,
+        email: formData.email,
+        phone: formData.phone || null
+      })
+    })
 
+    if (result.debounced || result.blocked) {
+      return
+    }
+
+    if (result.success) {
       setIsSuccess(true)
-
       // Reset after showing success
       setTimeout(() => {
         setIsSuccess(false)
@@ -78,11 +89,9 @@ const ServiceRequest = () => {
           phone: ''
         })
       }, 4000)
-    } catch (err) {
-      console.error('Error submitting service request:', err)
+    } else {
+      console.error('Error submitting service request:', result.error)
       setError(t('submitError') || 'Failed to submit request. Please try again.')
-    } finally {
-      setIsSubmitting(false)
     }
   }
 

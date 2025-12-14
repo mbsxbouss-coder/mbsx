@@ -266,6 +266,14 @@
   color: var(--text-primary);
 }
 
+.ceo-desc {
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: var(--text-tertiary);
+  margin-top: 1rem;
+  max-width: 400px;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .about-grid {

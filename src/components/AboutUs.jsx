@@ -104,6 +104,7 @@ const AboutUs = () => {
               <div className="ceo-info">
                 <span className="ceo-label">{t('ceoTitle')}</span>
                 <h4 className="ceo-name">{t('ceoName')}</h4>
+                <p className="ceo-desc">{t('ceoDesc')}</p>
               </div>
             </div>
           </div>

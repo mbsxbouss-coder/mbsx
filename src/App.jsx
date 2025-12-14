@@ -16,6 +16,7 @@ import PublicationsPage from './pages/PublicationsPage'
 import AdvertisementsPage from './pages/AdvertisementsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import ProfilePage from './pages/ProfilePage'
 import AdminDashboard from './pages/AdminDashboard'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { NotificationProvider, useNotifications } from './contexts/NotificationContext'
@@ -160,6 +161,16 @@ Decisions That Shape`,
     continueWithGoogle: 'Continue with Google',
     orContinueWith: 'or continue with',
     signOut: 'Sign Out',
+
+    // Profile
+    profile: 'Profile',
+    manageYourAccount: 'Manage your account',
+    editProfile: 'Edit Profile',
+    backToHome: 'Back to Home',
+    profileUpdated: 'Profile updated successfully',
+    updateError: 'Failed to update profile',
+    noName: 'No name set',
+    save: 'Save',
 
     // Admin
     admin: 'Admin',
@@ -881,6 +892,17 @@ Décisions Qui Façonnent`,
     loginLink: 'Se connecter',
     passwordMismatch: 'Les mots de passe ne correspondent pas',
     agreeTermsError: "Vous devez accepter les conditions d'utilisation",
+
+    // Profile
+    profile: 'Profil',
+    manageYourAccount: 'Gérer votre compte',
+    editProfile: 'Modifier le Profil',
+    backToHome: "Retour à l'Accueil",
+    profileUpdated: 'Profil mis à jour avec succès',
+    updateError: 'Échec de la mise à jour du profil',
+    noName: 'Aucun nom défini',
+    save: 'Enregistrer',
+    signOut: 'Se Déconnecter',
   },
   ar: {
     welcome: 'مرحباً بكم في MBSx',
@@ -1257,6 +1279,17 @@ Décisions Qui Façonnent`,
     loginLink: 'تسجيل الدخول',
     passwordMismatch: 'كلمات المرور غير متطابقة',
     agreeTermsError: 'يجب الموافقة على شروط الخدمة',
+
+    // Profile
+    profile: 'الملف الشخصي',
+    manageYourAccount: 'إدارة حسابك',
+    editProfile: 'تعديل الملف الشخصي',
+    backToHome: 'العودة للرئيسية',
+    profileUpdated: 'تم تحديث الملف الشخصي بنجاح',
+    updateError: 'فشل تحديث الملف الشخصي',
+    noName: 'لم يتم تعيين اسم',
+    save: 'حفظ',
+    signOut: 'تسجيل الخروج',
   }
 }
 
@@ -1308,6 +1341,7 @@ function AppContent() {
             <Route path="/advertisements" element={<AdvertisementsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
             <Route
               path="/admin/*"
               element={

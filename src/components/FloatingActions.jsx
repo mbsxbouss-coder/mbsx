@@ -1,12 +1,16 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLanguage } from '../App'
+import { useAuth } from '../contexts/AuthContext'
 import './FloatingActions.css'
 
 const FloatingActions = ({ onSearchClick, onNotificationClick, unreadCount }) => {
   const { language } = useLanguage()
+  const { isAuthenticated, profile, user } = useAuth()
   const navigate = useNavigate()
   const isRTL = language === 'ar'
+
+  const userInitial = (profile?.full_name || user?.email || '?')[0].toUpperCase()
 
   return (
     <div className={`floating-actions ${isRTL ? 'rtl' : ''}`}>
@@ -37,17 +41,27 @@ const FloatingActions = ({ onSearchClick, onNotificationClick, unreadCount }) =>
         )}
       </button>
 
-      {/* Login Button */}
-      <button
-        className="floating-btn login-btn"
-        onClick={() => navigate('/login')}
-        aria-label="Login"
-      >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
-      </button>
+      {/* Login/Profile Button */}
+      {isAuthenticated ? (
+        <button
+          className="floating-btn profile-btn"
+          onClick={() => navigate('/profile')}
+          aria-label="Profile"
+        >
+          <span className="profile-initial">{userInitial}</span>
+        </button>
+      ) : (
+        <button
+          className="floating-btn login-btn"
+          onClick={() => navigate('/login')}
+          aria-label="Login"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </button>
+      )}
     </div>
   )
 }

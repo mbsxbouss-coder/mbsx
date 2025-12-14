@@ -1,9 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useLanguage } from '../App'
 import './FloatingActions.css'
 
 const FloatingActions = ({ onSearchClick, onNotificationClick, unreadCount }) => {
   const { language } = useLanguage()
+  const navigate = useNavigate()
   const isRTL = language === 'ar'
 
   return (
@@ -33,6 +35,18 @@ const FloatingActions = ({ onSearchClick, onNotificationClick, unreadCount }) =>
         {unreadCount > 0 && (
           <span className="notification-badge">{unreadCount}</span>
         )}
+      </button>
+
+      {/* Login Button */}
+      <button
+        className="floating-btn login-btn"
+        onClick={() => navigate('/login')}
+        aria-label="Login"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
       </button>
     </div>
   )

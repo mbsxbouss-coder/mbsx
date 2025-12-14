@@ -13,6 +13,8 @@ import OurServicesPage from './pages/OurServicesPage'
 import KnowledgeCenterPage from './pages/KnowledgeCenterPage'
 import PublicationsPage from './pages/PublicationsPage'
 import AdvertisementsPage from './pages/AdvertisementsPage'
+import LoginPage from './pages/LoginPage'
+import SignupPage from './pages/SignupPage'
 
 // Theme Context
 const ThemeContext = createContext()
@@ -388,6 +390,33 @@ Decisions That Shape`,
     adsSubmitBtn: 'Submit Request',
     adsSubmitSuccess: 'Request Sent!',
     adsSuccessMessage: 'Your advertisement request has been submitted successfully. We will contact you soon.',
+
+    // Login Page
+    loginTitle: 'Welcome Back',
+    loginSubtitle: 'Sign in to your account to continue',
+    emailPlaceholder: 'Enter your email',
+    password: 'Password',
+    passwordPlaceholder: 'Enter your password',
+    rememberMe: 'Remember me',
+    forgotPassword: 'Forgot password?',
+    loginButton: 'Sign In',
+    noAccount: "Don't have an account?",
+    signupLink: 'Sign up',
+
+    // Signup Page
+    signupTitle: 'Create Account',
+    signupSubtitle: 'Join MBSx to access data journalism resources',
+    fullName: 'Full Name',
+    fullNamePlaceholder: 'Enter your full name',
+    confirmPassword: 'Confirm Password',
+    confirmPasswordPlaceholder: 'Confirm your password',
+    agreeToTerms: 'I agree to the',
+    termsOfService: 'Terms of Service',
+    signupButton: 'Create Account',
+    haveAccount: 'Already have an account?',
+    loginLink: 'Sign in',
+    passwordMismatch: 'Passwords do not match',
+    agreeTermsError: 'You must agree to the terms of service',
   },
   fr: {
     welcome: 'Bienvenue chez MBSx',
@@ -734,6 +763,33 @@ Décisions Qui Façonnent`,
     adsSubmitBtn: 'Soumettre la Demande',
     adsSubmitSuccess: 'Demande Envoyée!',
     adsSuccessMessage: 'Votre demande d\'annonce a été soumise avec succès. Nous vous contacterons bientôt.',
+
+    // Login Page
+    loginTitle: 'Bon Retour',
+    loginSubtitle: 'Connectez-vous à votre compte pour continuer',
+    emailPlaceholder: 'Entrez votre email',
+    password: 'Mot de passe',
+    passwordPlaceholder: 'Entrez votre mot de passe',
+    rememberMe: 'Se souvenir de moi',
+    forgotPassword: 'Mot de passe oublié?',
+    loginButton: 'Se Connecter',
+    noAccount: "Vous n'avez pas de compte?",
+    signupLink: "S'inscrire",
+
+    // Signup Page
+    signupTitle: 'Créer un Compte',
+    signupSubtitle: 'Rejoignez MBSx pour accéder aux ressources de journalisme de données',
+    fullName: 'Nom Complet',
+    fullNamePlaceholder: 'Entrez votre nom complet',
+    confirmPassword: 'Confirmer le Mot de Passe',
+    confirmPasswordPlaceholder: 'Confirmez votre mot de passe',
+    agreeToTerms: "J'accepte les",
+    termsOfService: "Conditions d'utilisation",
+    signupButton: 'Créer un Compte',
+    haveAccount: 'Vous avez déjà un compte?',
+    loginLink: 'Se connecter',
+    passwordMismatch: 'Les mots de passe ne correspondent pas',
+    agreeTermsError: "Vous devez accepter les conditions d'utilisation",
   },
   ar: {
     welcome: 'مرحباً بكم في MBSx',
@@ -1080,6 +1136,33 @@ Décisions Qui Façonnent`,
     adsSubmitBtn: 'إرسال الطلب',
     adsSubmitSuccess: 'تم الإرسال!',
     adsSuccessMessage: 'تم تقديم طلب إعلانك بنجاح. سنتواصل معك قريباً.',
+
+    // Login Page
+    loginTitle: 'مرحباً بعودتك',
+    loginSubtitle: 'سجل الدخول إلى حسابك للمتابعة',
+    emailPlaceholder: 'أدخل بريدك الإلكتروني',
+    password: 'كلمة المرور',
+    passwordPlaceholder: 'أدخل كلمة المرور',
+    rememberMe: 'تذكرني',
+    forgotPassword: 'نسيت كلمة المرور؟',
+    loginButton: 'تسجيل الدخول',
+    noAccount: 'ليس لديك حساب؟',
+    signupLink: 'إنشاء حساب',
+
+    // Signup Page
+    signupTitle: 'إنشاء حساب',
+    signupSubtitle: 'انضم إلى MBSx للوصول إلى موارد صحافة البيانات',
+    fullName: 'الاسم الكامل',
+    fullNamePlaceholder: 'أدخل اسمك الكامل',
+    confirmPassword: 'تأكيد كلمة المرور',
+    confirmPasswordPlaceholder: 'أكد كلمة المرور',
+    agreeToTerms: 'أوافق على',
+    termsOfService: 'شروط الخدمة',
+    signupButton: 'إنشاء حساب',
+    haveAccount: 'لديك حساب بالفعل؟',
+    loginLink: 'تسجيل الدخول',
+    passwordMismatch: 'كلمات المرور غير متطابقة',
+    agreeTermsError: 'يجب الموافقة على شروط الخدمة',
   }
 }
 
@@ -1165,6 +1248,8 @@ function App() {
                   <Route path="/knowledge-center" element={<KnowledgeCenterPage />} />
                   <Route path="/publications" element={<PublicationsPage />} />
                   <Route path="/advertisements" element={<AdvertisementsPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignupPage />} />
                 </Routes>
 
                 <Footer />

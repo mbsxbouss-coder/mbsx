@@ -1,9 +1,19 @@
 import React, { useEffect } from 'react'
 import { useLanguage } from '../App'
+import { useNotifications } from '../contexts/NotificationContext'
+import { Link } from 'react-router-dom'
 import './NotificationPanel.css'
 
-const NotificationPanel = ({ isOpen, onClose, notifications, onMarkRead, onMarkAllRead }) => {
+const NotificationPanel = ({ isOpen, onClose }) => {
   const { t, language } = useLanguage()
+  const {
+    notifications,
+    loading,
+    unreadCount,
+    markAsRead,
+    markAllAsRead,
+    isAuthenticated
+  } = useNotifications()
   const isRTL = language === 'ar'
 
   useEffect(() => {
@@ -20,8 +30,6 @@ const NotificationPanel = ({ isOpen, onClose, notifications, onMarkRead, onMarkA
     }
   }, [isOpen, onClose])
 
-  const unreadCount = notifications.filter(n => !n.read).length
-
   if (!isOpen) return null
 
   return (
@@ -32,12 +40,12 @@ const NotificationPanel = ({ isOpen, onClose, notifications, onMarkRead, onMarkA
           <div className="notification-header-info">
             <h3>{t('notifications')}</h3>
             {unreadCount > 0 && (
-              <span className="unread-count">{unreadCount} new</span>
+              <span className="unread-count">{unreadCount} {t('new') || 'new'}</span>
             )}
           </div>
           <div className="notification-header-actions">
             {unreadCount > 0 && (
-              <button className="mark-all-btn" onClick={onMarkAllRead}>
+              <button className="mark-all-btn" onClick={markAllAsRead}>
                 {t('markAllRead')}
               </button>
             )}
@@ -51,7 +59,24 @@ const NotificationPanel = ({ isOpen, onClose, notifications, onMarkRead, onMarkA
         </div>
 
         <div className="notification-body">
-          {notifications.length === 0 ? (
+          {!isAuthenticated ? (
+            <div className="notification-empty">
+              <div className="empty-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.73 21a2 2 0 01-3.46 0" />
+                </svg>
+              </div>
+              <p>{t('loginToSeeNotifications') || 'Please log in to see your notifications'}</p>
+              <Link to="/login" className="btn btn-primary notification-login-btn" onClick={onClose}>
+                {t('loginButton') || 'Log In'}
+              </Link>
+            </div>
+          ) : loading ? (
+            <div className="notification-loading">
+              <span className="loader"></span>
+            </div>
+          ) : notifications.length === 0 ? (
             <div className="notification-empty">
               <div className="empty-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -66,16 +91,16 @@ const NotificationPanel = ({ isOpen, onClose, notifications, onMarkRead, onMarkA
               {notifications.map(notification => (
                 <div
                   key={notification.id}
-                  className={`notification-item ${notification.read ? 'read' : ''}`}
-                  onClick={() => onMarkRead(notification.id)}
+                  className={`notification-item ${notification.read ? 'read' : ''} ${notification.type || ''}`}
+                  onClick={() => markAsRead(notification.id)}
                 >
                   <div className="notification-indicator">
                     {!notification.read && <span className="indicator-dot" />}
                   </div>
                   <div className="notification-content">
-                    <h4 className="notification-title">{notification.title}</h4>
-                    <p className="notification-message">{notification.message}</p>
-                    <span className="notification-time">{notification.time}</span>
+                    <h4 className="notification-title">{notification.displayTitle || notification.title}</h4>
+                    <p className="notification-message">{notification.displayMessage || notification.message}</p>
+                    <span className="notification-time">{notification.timeAgo}</span>
                   </div>
                   <div className="notification-action">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

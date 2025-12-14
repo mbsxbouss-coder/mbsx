@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useLanguage } from '../App'
+import { supabase } from '../lib/supabase'
+import { useAuth } from '../contexts/AuthContext'
 import './AdRequest.css'
 
 const AdRequest = () => {
   const { t } = useLanguage()
+  const { user } = useAuth()
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
   const [formData, setFormData] = useState({
@@ -17,6 +20,7 @@ const AdRequest = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,31 +53,51 @@ const AdRequest = () => {
     } else {
       setFormData(prev => ({ ...prev, [name]: value }))
     }
+    setError('')
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError('')
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    try {
+      const { error: insertError } = await supabase
+        .from('ad_requests')
+        .insert([{
+          user_id: user?.id || null,
+          institution_name: formData.institutionName,
+          sector: formData.sector,
+          ad_types: formData.adTypes,
+          ad_details: formData.adDetails,
+          email: formData.email,
+          phone: formData.phone || null,
+          boost_ad: formData.boostAd
+        }])
 
-    setIsSubmitting(false)
-    setIsSuccess(true)
+      if (insertError) throw insertError
 
-    // Reset after showing success
-    setTimeout(() => {
-      setIsSuccess(false)
-      setFormData({
-        institutionName: '',
-        sector: '',
-        adTypes: [],
-        adDetails: '',
-        email: '',
-        phone: '',
-        boostAd: false
-      })
-    }, 4000)
+      setIsSuccess(true)
+
+      // Reset after showing success
+      setTimeout(() => {
+        setIsSuccess(false)
+        setFormData({
+          institutionName: '',
+          sector: '',
+          adTypes: [],
+          adDetails: '',
+          email: '',
+          phone: '',
+          boostAd: false
+        })
+      }, 4000)
+    } catch (err) {
+      console.error('Error submitting ad request:', err)
+      setError(t('submitError') || 'Failed to submit request. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const adTypeOptions = [
@@ -115,6 +139,12 @@ const AdRequest = () => {
             </div>
           ) : (
             <form className="ad-form" onSubmit={handleSubmit}>
+              {error && (
+                <div className="form-error" style={{ gridColumn: '1 / -1', marginBottom: '1rem' }}>
+                  {error}
+                </div>
+              )}
+
               <div className="ad-form-grid">
                 <div className="ad-form-left">
                   <div className="form-group">
@@ -126,6 +156,7 @@ const AdRequest = () => {
                       value={formData.institutionName}
                       onChange={handleChange}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -139,6 +170,7 @@ const AdRequest = () => {
                       value={formData.sector}
                       onChange={handleChange}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -151,6 +183,7 @@ const AdRequest = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -162,6 +195,7 @@ const AdRequest = () => {
                       className="form-input"
                       value={formData.phone}
                       onChange={handleChange}
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -178,6 +212,7 @@ const AdRequest = () => {
                             value={option.value}
                             checked={formData.adTypes.includes(option.value)}
                             onChange={handleChange}
+                            disabled={isSubmitting}
                           />
                           <span className="checkbox-custom" />
                           <span>{option.label}</span>
@@ -195,6 +230,7 @@ const AdRequest = () => {
                       value={formData.adDetails}
                       onChange={handleChange}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -204,6 +240,7 @@ const AdRequest = () => {
                       name="boostAd"
                       checked={formData.boostAd}
                       onChange={handleChange}
+                      disabled={isSubmitting}
                     />
                     <span className="checkbox-custom" />
                     <span className="boost-text">

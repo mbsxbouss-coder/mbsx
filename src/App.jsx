@@ -6,6 +6,7 @@ import FloatingActions from './components/FloatingActions'
 import Footer from './components/Footer'
 import SearchModal from './components/SearchModal'
 import NotificationPanel from './components/NotificationPanel'
+import ProtectedRoute from './components/ProtectedRoute'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import DataJournalismPage from './pages/DataJournalismPage'
@@ -15,6 +16,9 @@ import PublicationsPage from './pages/PublicationsPage'
 import AdvertisementsPage from './pages/AdvertisementsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import AdminDashboard from './pages/AdminDashboard'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { NotificationProvider, useNotifications } from './contexts/NotificationContext'
 
 // Theme Context
 const ThemeContext = createContext()
@@ -144,6 +148,87 @@ Decisions That Shape`,
     notifications: 'Notifications',
     noNotifications: 'No new notifications',
     markAllRead: 'Mark all as read',
+    loginToSeeNotifications: 'Please log in to see your notifications',
+
+    // Auth
+    invalidCredentials: 'Invalid email or password',
+    emailInUse: 'This email is already registered',
+    passwordTooShort: 'Password must be at least 8 characters',
+    checkEmail: 'Check Your Email',
+    verificationSent: 'We sent a verification link to your email. Please check your inbox and click the link to verify your account.',
+    alreadyVerified: 'Already verified?',
+    continueWithGoogle: 'Continue with Google',
+    orContinueWith: 'or continue with',
+    signOut: 'Sign Out',
+
+    // Admin
+    admin: 'Admin',
+    adminDashboard: 'Dashboard',
+    dashboardSubtitle: 'Welcome to your admin dashboard',
+    overview: 'Overview',
+    users: 'Users',
+    manageUsers: 'Manage user accounts and roles',
+    serviceRequests: 'Service Requests',
+    manageServiceRequests: 'Review and manage service requests',
+    adRequests: 'Ad Requests',
+    manageAdRequests: 'Review and manage advertisement requests',
+    sendNotifications: 'Send Notifications',
+    sendNotificationsSubtitle: 'Send notifications to users',
+    totalUsers: 'Total Users',
+    pendingServiceRequests: 'Pending Service Requests',
+    pendingAdRequests: 'Pending Ad Requests',
+    activeAds: 'Active Ads',
+    recentServiceRequests: 'Recent Service Requests',
+    allUsers: 'All Users',
+    allRoles: 'All Roles',
+    admins: 'Admins',
+    moderators: 'Moderators',
+    allStatuses: 'All Statuses',
+    allRequests: 'All Requests',
+    allAdRequests: 'All Ad Requests',
+    requestDetails: 'Request Details',
+    adRequestDetails: 'Ad Request Details',
+    updateStatus: 'Update Status',
+    adminNotes: 'Admin Notes',
+    addNotes: 'Add notes about this request...',
+    saveChanges: 'Save Changes',
+    cancel: 'Cancel',
+    view: 'View',
+    institution: 'Institution',
+    service: 'Service',
+    status: 'Status',
+    date: 'Date',
+    actions: 'Actions',
+    name: 'Name',
+    role: 'Role',
+    joined: 'Joined',
+    adTypes: 'Ad Types',
+    boosted: 'Boosted',
+    noRequests: 'No requests yet',
+    noUsers: 'No users found',
+    noAdRequests: 'No ad requests found',
+    newNotification: 'New Notification',
+    recipients: 'Recipients',
+    selectedUsers: 'Selected Users',
+    notificationType: 'Type',
+    info: 'Info',
+    success: 'Success',
+    warning: 'Warning',
+    alert: 'Alert',
+    selectUsers: 'Select Users',
+    usersSelected: 'users selected',
+    titleEnglish: 'Title (English)',
+    titleArabic: 'Title (Arabic)',
+    titleFrench: 'Title (French)',
+    messageEnglish: 'Message (English)',
+    messageArabic: 'Message (Arabic)',
+    messageFrench: 'Message (French)',
+    enterTitle: 'Enter notification title',
+    enterMessage: 'Enter notification message',
+    sendNotification: 'Send Notification',
+    sending: 'Sending...',
+    notificationSentSuccess: 'Notification sent successfully!',
+    selectAtLeastOneUser: 'Please select at least one user',
 
     // About Us
     aboutUsLabel: 'About Us',
@@ -1175,17 +1260,84 @@ Décisions Qui Façonnent`,
   }
 }
 
-function App() {
-  const [theme, setTheme] = useState(() => localStorage.getItem('mbsx-theme') || 'light')
-  const [language, setLanguage] = useState(() => localStorage.getItem('mbsx-language') || 'en')
+// Inner App component that uses contexts
+function AppContent() {
   const [showIntro, setShowIntro] = useState(() => !localStorage.getItem('mbsx-visited'))
   const [searchOpen, setSearchOpen] = useState(false)
   const [notificationsOpen, setNotificationsOpen] = useState(false)
-  const [notifications, setNotifications] = useState([
-    { id: 1, title: 'New Report Available', message: 'Q4 Economic Analysis Report is now ready', read: false, time: '2 hours ago' },
-    { id: 2, title: 'Service Update', message: 'Interactive dashboards now support real-time data', read: false, time: '5 hours ago' },
-    { id: 3, title: 'Training Session', message: 'Data Journalism Workshop scheduled for next week', read: true, time: '1 day ago' },
-  ])
+  const { language } = useLanguage()
+  const { unreadCount } = useNotifications()
+
+  const handleEnterSite = () => {
+    localStorage.setItem('mbsx-visited', 'true')
+    setShowIntro(false)
+  }
+
+  // Check if current path is admin
+  const isAdminRoute = window.location.pathname.startsWith('/admin')
+
+  return (
+    <div className="app">
+      {showIntro && (
+        <IntroSidebar
+          onEnter={handleEnterSite}
+          onLanguageChange={() => {}}
+        />
+      )}
+
+      {!showIntro && (
+        <>
+          {!isAdminRoute && (
+            <>
+              <FloatingNav />
+              <FloatingActions
+                onSearchClick={() => setSearchOpen(true)}
+                onNotificationClick={() => setNotificationsOpen(true)}
+                unreadCount={unreadCount}
+              />
+            </>
+          )}
+
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/data-journalism" element={<DataJournalismPage />} />
+            <Route path="/our-services" element={<OurServicesPage />} />
+            <Route path="/knowledge-center" element={<KnowledgeCenterPage />} />
+            <Route path="/publications" element={<PublicationsPage />} />
+            <Route path="/advertisements" element={<AdvertisementsPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route
+              path="/admin/*"
+              element={
+                <ProtectedRoute requireAdmin>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+
+          {!isAdminRoute && <Footer />}
+
+          <SearchModal
+            isOpen={searchOpen}
+            onClose={() => setSearchOpen(false)}
+          />
+
+          <NotificationPanel
+            isOpen={notificationsOpen}
+            onClose={() => setNotificationsOpen(false)}
+          />
+        </>
+      )}
+    </div>
+  )
+}
+
+function App() {
+  const [theme, setTheme] = useState(() => localStorage.getItem('mbsx-theme') || 'light')
+  const [language, setLanguage] = useState(() => localStorage.getItem('mbsx-language') || 'en')
 
   useEffect(() => {
     // Set initial document attributes
@@ -1209,75 +1361,17 @@ function App() {
     setTheme(prev => prev === 'light' ? 'dark' : 'light')
   }
 
-  const handleEnterSite = () => {
-    localStorage.setItem('mbsx-visited', 'true')
-    setShowIntro(false)
-  }
-
   const t = (key) => translations[language]?.[key] || translations.en[key] || key
-
-  const markNotificationRead = (id) => {
-    setNotifications(prev => prev.map(n =>
-      n.id === id ? { ...n, read: true } : n
-    ))
-  }
-
-  const markAllNotificationsRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })))
-  }
-
-  const unreadCount = notifications.filter(n => !n.read).length
 
   return (
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <LanguageContext.Provider value={{ language, setLanguage, t }}>
-          <div className="app">
-            {showIntro && (
-              <IntroSidebar
-                onEnter={handleEnterSite}
-                onLanguageChange={setLanguage}
-              />
-            )}
-
-            {!showIntro && (
-              <>
-                <FloatingNav />
-                <FloatingActions
-                  onSearchClick={() => setSearchOpen(true)}
-                  onNotificationClick={() => setNotificationsOpen(true)}
-                  unreadCount={unreadCount}
-                />
-
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/about" element={<AboutPage />} />
-                  <Route path="/data-journalism" element={<DataJournalismPage />} />
-                  <Route path="/our-services" element={<OurServicesPage />} />
-                  <Route path="/knowledge-center" element={<KnowledgeCenterPage />} />
-                  <Route path="/publications" element={<PublicationsPage />} />
-                  <Route path="/advertisements" element={<AdvertisementsPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/signup" element={<SignupPage />} />
-                </Routes>
-
-                <Footer />
-
-                <SearchModal
-                  isOpen={searchOpen}
-                  onClose={() => setSearchOpen(false)}
-                />
-
-                <NotificationPanel
-                  isOpen={notificationsOpen}
-                  onClose={() => setNotificationsOpen(false)}
-                  notifications={notifications}
-                  onMarkRead={markNotificationRead}
-                  onMarkAllRead={markAllNotificationsRead}
-                />
-              </>
-            )}
-          </div>
+          <AuthProvider>
+            <NotificationProvider language={language}>
+              <AppContent />
+            </NotificationProvider>
+          </AuthProvider>
         </LanguageContext.Provider>
       </ThemeContext.Provider>
     </Router>

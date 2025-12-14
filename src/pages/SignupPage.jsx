@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../App'
+import { useAuth } from '../contexts/AuthContext'
 import './LoginPage.css'
 
 const SignupPage = () => {
   const { t, language } = useLanguage()
   const navigate = useNavigate()
+  const { signUp, signInWithGoogle, isAuthenticated, loading: authLoading } = useAuth()
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -16,10 +18,27 @@ const SignupPage = () => {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [showVerification, setShowVerification] = useState(false)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  // Show loading state while checking auth
+  if (authLoading) {
+    return (
+      <main className="auth-page">
+        <div className="auth-loading">
+          <span className="loader"></span>
+        </div>
+      </main>
+    )
+  }
+
+  // Redirect if already authenticated
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />
+  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -43,16 +62,75 @@ const SignupPage = () => {
       return
     }
 
+    if (formData.password.length < 8) {
+      setError(t('passwordTooShort') || 'Password must be at least 8 characters')
+      return
+    }
+
     setIsLoading(true)
     setError('')
 
-    // Simulate API call
-    setTimeout(() => {
+    const { data, error: signUpError } = await signUp({
+      email: formData.email,
+      password: formData.password,
+      fullName: formData.fullName
+    })
+
+    setIsLoading(false)
+
+    if (signUpError) {
+      if (signUpError.message.includes('already registered')) {
+        setError(t('emailInUse') || 'This email is already registered')
+      } else {
+        setError(signUpError.message)
+      }
+    } else {
+      setShowVerification(true)
+    }
+  }
+
+  const handleGoogleSignup = async () => {
+    setIsLoading(true)
+    setError('')
+    const { error: googleError } = await signInWithGoogle()
+    if (googleError) {
+      setError(googleError.message)
       setIsLoading(false)
-      // For demo purposes - you would replace with actual registration
-      console.log('Signup submitted:', formData)
-      // navigate('/login') // Redirect after successful signup
-    }, 1500)
+    }
+  }
+
+  // Show verification message
+  if (showVerification) {
+    return (
+      <main className="auth-page">
+        <div className="auth-container">
+          <motion.div
+            className="auth-card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="auth-header">
+              <Link to="/" className="auth-logo">
+                MBSx
+              </Link>
+              <h1 className="auth-title">{t('checkEmail') || 'Check Your Email'}</h1>
+              <p className="auth-subtitle verification-message">
+                {t('verificationSent') || 'We sent a verification link to your email. Please check your inbox and click the link to verify your account.'}
+              </p>
+            </div>
+            <div className="auth-footer">
+              <p>
+                {t('alreadyVerified') || 'Already verified?'}{' '}
+                <Link to="/login" className="auth-link">
+                  {t('loginLink')}
+                </Link>
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </main>
+    )
   }
 
   return (
@@ -92,6 +170,7 @@ const SignupPage = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </div>
 
@@ -108,6 +187,7 @@ const SignupPage = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </div>
 
@@ -125,6 +205,7 @@ const SignupPage = () => {
                 onChange={handleChange}
                 required
                 minLength={8}
+                disabled={isLoading}
               />
             </div>
 
@@ -141,6 +222,7 @@ const SignupPage = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </div>
 
@@ -151,6 +233,7 @@ const SignupPage = () => {
                   name="agreeTerms"
                   checked={formData.agreeTerms}
                   onChange={handleChange}
+                  disabled={isLoading}
                 />
                 <span>
                   {t('agreeToTerms')}{' '}
@@ -171,6 +254,19 @@ const SignupPage = () => {
               ) : (
                 t('signupButton')
               )}
+            </button>
+
+            <div className="auth-divider">
+              <span>{t('orContinueWith') || 'or continue with'}</span>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleGoogleSignup}
+              className="btn btn-secondary auth-social-btn"
+              disabled={isLoading}
+            >
+              {t('continueWithGoogle') || 'Continue with Google'}
             </button>
           </form>
 

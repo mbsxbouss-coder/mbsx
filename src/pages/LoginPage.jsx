@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../App'
+import { useAuth } from '../contexts/AuthContext'
 import './LoginPage.css'
 
 const LoginPage = () => {
   const { t, language } = useLanguage()
   const navigate = useNavigate()
+  const { signIn, signInWithGoogle, isAuthenticated, loading: authLoading } = useAuth()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -18,6 +20,21 @@ const LoginPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  // Redirect if already authenticated
+  if (authLoading) {
+    return (
+      <main className="auth-page">
+        <div className="auth-loading">
+          <span className="loader"></span>
+        </div>
+      </main>
+    )
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />
+  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -33,13 +50,30 @@ const LoginPage = () => {
     setIsLoading(true)
     setError('')
 
-    // Simulate API call
-    setTimeout(() => {
+    const { error: signInError } = await signIn({
+      email: formData.email,
+      password: formData.password
+    })
+
+    if (signInError) {
+      setError(t('invalidCredentials') || signInError.message)
       setIsLoading(false)
-      // For demo purposes - you would replace with actual auth
-      console.log('Login submitted:', formData)
-      // navigate('/') // Redirect after successful login
-    }, 1500)
+    } else {
+      if (formData.rememberMe) {
+        localStorage.setItem('mbsx-remember', 'true')
+      }
+      navigate('/')
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true)
+    setError('')
+    const { error: googleError } = await signInWithGoogle()
+    if (googleError) {
+      setError(googleError.message)
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -79,6 +113,7 @@ const LoginPage = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </div>
 
@@ -95,6 +130,7 @@ const LoginPage = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </div>
 
@@ -105,6 +141,7 @@ const LoginPage = () => {
                   name="rememberMe"
                   checked={formData.rememberMe}
                   onChange={handleChange}
+                  disabled={isLoading}
                 />
                 <span>{t('rememberMe')}</span>
               </label>
@@ -123,6 +160,19 @@ const LoginPage = () => {
               ) : (
                 t('loginButton')
               )}
+            </button>
+
+            <div className="auth-divider">
+              <span>{t('orContinueWith') || 'or continue with'}</span>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="btn btn-secondary auth-social-btn"
+              disabled={isLoading}
+            >
+              {t('continueWithGoogle') || 'Continue with Google'}
             </button>
           </form>
 

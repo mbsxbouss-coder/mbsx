@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useLanguage } from '../App'
+import { supabase } from '../lib/supabase'
+import { useAuth } from '../contexts/AuthContext'
 import './ServiceRequest.css'
 
 const ServiceRequest = () => {
   const { t } = useLanguage()
+  const { user } = useAuth()
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
   const [formData, setFormData] = useState({
@@ -16,6 +19,7 @@ const ServiceRequest = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,30 +41,49 @@ const ServiceRequest = () => {
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+    setError('')
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError('')
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    try {
+      const { error: insertError } = await supabase
+        .from('service_requests')
+        .insert([{
+          user_id: user?.id || null,
+          institution_name: formData.institutionName,
+          sector: formData.sector,
+          service_type: formData.serviceType,
+          description: formData.description,
+          email: formData.email,
+          phone: formData.phone || null
+        }])
 
-    setIsSubmitting(false)
-    setIsSuccess(true)
+      if (insertError) throw insertError
 
-    // Reset after showing success
-    setTimeout(() => {
-      setIsSuccess(false)
-      setFormData({
-        institutionName: '',
-        sector: '',
-        serviceType: '',
-        description: '',
-        email: '',
-        phone: ''
-      })
-    }, 4000)
+      setIsSuccess(true)
+
+      // Reset after showing success
+      setTimeout(() => {
+        setIsSuccess(false)
+        setFormData({
+          institutionName: '',
+          sector: '',
+          serviceType: '',
+          description: '',
+          email: '',
+          phone: ''
+        })
+      }, 4000)
+    } catch (err) {
+      console.error('Error submitting service request:', err)
+      setError(t('submitError') || 'Failed to submit request. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -132,6 +155,12 @@ const ServiceRequest = () => {
               </div>
             ) : (
               <form className="request-form" onSubmit={handleSubmit}>
+                {error && (
+                  <div className="form-error">
+                    {error}
+                  </div>
+                )}
+
                 <div className="form-group">
                   <label className="form-label">{t('institutionName')}</label>
                   <input
@@ -141,6 +170,7 @@ const ServiceRequest = () => {
                     value={formData.institutionName}
                     onChange={handleChange}
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -155,6 +185,7 @@ const ServiceRequest = () => {
                         checked={formData.sector === 'media'}
                         onChange={handleChange}
                         required
+                        disabled={isSubmitting}
                       />
                       <span>{t('media')}</span>
                     </label>
@@ -165,6 +196,7 @@ const ServiceRequest = () => {
                         value="economic"
                         checked={formData.sector === 'economic'}
                         onChange={handleChange}
+                        disabled={isSubmitting}
                       />
                       <span>{t('economic')}</span>
                     </label>
@@ -179,6 +211,7 @@ const ServiceRequest = () => {
                     value={formData.serviceType}
                     onChange={handleChange}
                     required
+                    disabled={isSubmitting}
                   >
                     <option value="">Select a service</option>
                     <option value="report">{t('report')}</option>
@@ -196,6 +229,7 @@ const ServiceRequest = () => {
                     value={formData.description}
                     onChange={handleChange}
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -209,6 +243,7 @@ const ServiceRequest = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div className="form-group">
@@ -219,6 +254,7 @@ const ServiceRequest = () => {
                       className="form-input"
                       value={formData.phone}
                       onChange={handleChange}
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>

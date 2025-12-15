@@ -133,6 +133,7 @@
   transition: all var(--transition-medium);
   opacity: 0;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .library-card.animate-fade-in-up {

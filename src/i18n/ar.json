@@ -397,5 +397,16 @@
   "invalidEmail": "يرجى ادخال عنوان بريد الكتروني صالح",
   "invalidPhone": "يرجى ادخال رقم هاتف صالح",
   "minLength": "يجب ان يكون {min} احرف على الاقل",
-  "selectOption": "يرجى اختيار خيار"
+  "selectOption": "يرجى اختيار خيار",
+  "articlesLabel": "مقالات ودراسات",
+  "articlesPageTitle": "مقالات ودراسات",
+  "articlesPageSubtitle": "اوراق بحثية معمقة ودراسات حالة ومقالات تحليلية تغطي احدث الاتجاهات في صحافة البيانات وتحليلات الاعلام",
+  "backToKnowledgeCenter": "العودة الى المراكز المعرفية",
+  "backToArticles": "العودة الى المقالات",
+  "minRead": "دقيقة قراءة",
+  "readMore": "اقرأ المزيد",
+  "noArticlesYet": "لا توجد مقالات حتى الان",
+  "noArticlesDesc": "سيتم اضافة مقالات ودراسات جديدة قريبا",
+  "shareArticle": "شارك المقال",
+  "copyLink": "نسخ الرابط"
 }

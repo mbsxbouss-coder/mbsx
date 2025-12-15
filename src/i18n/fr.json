@@ -397,5 +397,16 @@
   "invalidEmail": "Veuillez entrer une adresse email valide",
   "invalidPhone": "Veuillez entrer un numero de telephone valide",
   "minLength": "Doit contenir au moins {min} caracteres",
-  "selectOption": "Veuillez selectionner une option"
+  "selectOption": "Veuillez selectionner une option",
+  "articlesLabel": "Articles et Etudes",
+  "articlesPageTitle": "Articles et Etudes",
+  "articlesPageSubtitle": "Articles de recherche approfondis, etudes de cas et analyses couvrant les dernieres tendances du journalisme de donnees et de l'analyse mediatique",
+  "backToKnowledgeCenter": "Retour au Centre de Connaissances",
+  "backToArticles": "Retour aux Articles",
+  "minRead": "min de lecture",
+  "readMore": "Lire Plus",
+  "noArticlesYet": "Pas encore d'articles",
+  "noArticlesDesc": "De nouveaux articles et etudes seront ajoutes bientot",
+  "shareArticle": "Partager l'Article",
+  "copyLink": "Copier le Lien"
 }

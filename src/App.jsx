@@ -18,6 +18,8 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import ProfilePage from './pages/ProfilePage'
 import AdminDashboard from './pages/AdminDashboard'
+import ArticlesPage from './pages/ArticlesPage'
+import ArticleDetailPage from './pages/ArticleDetailPage'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { NotificationProvider, useNotifications } from './contexts/NotificationContext'
 import { getTranslation } from './i18n'
@@ -84,6 +86,8 @@ function AppContent() {
             <Route path="/data-journalism" element={<DataJournalismPage />} />
             <Route path="/our-services" element={<OurServicesPage />} />
             <Route path="/knowledge-center" element={<KnowledgeCenterPage />} />
+            <Route path="/knowledge-center/articles" element={<ArticlesPage />} />
+            <Route path="/knowledge-center/articles/:articleId" element={<ArticleDetailPage />} />
             <Route path="/publications" element={<PublicationsPage />} />
             <Route path="/advertisements" element={<AdvertisementsPage />} />
             <Route path="/login" element={<LoginPage />} />

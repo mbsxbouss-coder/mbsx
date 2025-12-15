@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../App'
 import './KnowledgeCenter.css'
 
@@ -29,6 +30,7 @@ const KnowledgeCenter = () => {
       id: 'articles',
       title: t('kcArticlesTitle'),
       desc: t('kcArticlesDesc'),
+      link: '/knowledge-center/articles',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
@@ -94,27 +96,33 @@ const KnowledgeCenter = () => {
           </div>
 
           <div className="library-grid">
-            {digitalLibraryItems.map((item, index) => (
-              <div
-                key={item.id}
-                className={`library-card ${isVisible ? 'animate-fade-in-up' : ''}`}
-                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-              >
-                <div className="library-card-icon">
-                  {item.icon}
-                </div>
-                <div className="library-card-content">
-                  <h3 className="library-card-title">{item.title}</h3>
-                  <p className="library-card-desc">{item.desc}</p>
-                </div>
-                <div className="library-card-arrow">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
-                </div>
-              </div>
-            ))}
+            {digitalLibraryItems.map((item, index) => {
+              const CardWrapper = item.link ? Link : 'div'
+              const cardProps = item.link ? { to: item.link } : {}
+
+              return (
+                <CardWrapper
+                  key={item.id}
+                  {...cardProps}
+                  className={`library-card ${isVisible ? 'animate-fade-in-up' : ''}`}
+                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+                >
+                  <div className="library-card-icon">
+                    {item.icon}
+                  </div>
+                  <div className="library-card-content">
+                    <h3 className="library-card-title">{item.title}</h3>
+                    <p className="library-card-desc">{item.desc}</p>
+                  </div>
+                  <div className="library-card-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </div>
+                </CardWrapper>
+              )
+            })}
           </div>
         </div>
 

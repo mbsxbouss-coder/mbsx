@@ -397,5 +397,16 @@
   "invalidEmail": "Please enter a valid email address",
   "invalidPhone": "Please enter a valid phone number",
   "minLength": "Must be at least {min} characters",
-  "selectOption": "Please select an option"
+  "selectOption": "Please select an option",
+  "articlesLabel": "Articles and Studies",
+  "articlesPageTitle": "Articles and Studies",
+  "articlesPageSubtitle": "In-depth research papers, case studies, and analytical articles covering the latest trends in data journalism and media analytics",
+  "backToKnowledgeCenter": "Back to Knowledge Center",
+  "backToArticles": "Back to Articles",
+  "minRead": "min read",
+  "readMore": "Read More",
+  "noArticlesYet": "No articles yet",
+  "noArticlesDesc": "New articles and studies will be added soon",
+  "shareArticle": "Share Article",
+  "copyLink": "Copy Link"
 }

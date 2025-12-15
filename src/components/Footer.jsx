@@ -23,6 +23,7 @@ const Footer = () => {
               <span className="logo-letter">B</span>
               <span className="logo-letter">S</span>
               <span className="logo-letter accent">x</span>
+              <img src="/data-logo-removebg-preview.png" alt="MBSx Data" className="logo-icon" />
             </div>
             <p className="footer-tagline">{t('footerTagline')}</p>
             <div className="footer-social">

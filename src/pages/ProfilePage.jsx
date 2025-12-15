@@ -53,7 +53,7 @@ const ProfilePage = () => {
       <div className="auth-container" style={{ maxWidth: '520px' }}>
         <div className="auth-card">
           <div className="auth-header">
-            <Link to="/" className="auth-logo">MBSx</Link>
+            <Link to="/" className="auth-logo">MBSx<img src="/data-logo-removebg-preview.png" alt="MBSx Data" className="auth-logo-icon" /></Link>
             <h1 className="auth-title">{t('profile') || 'Profile'}</h1>
             <p className="auth-subtitle">{t('manageYourAccount') || 'Manage your account'}</p>
           </div>

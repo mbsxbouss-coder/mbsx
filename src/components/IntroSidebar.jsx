@@ -39,6 +39,7 @@ const IntroSidebar = ({ onEnter, onLanguageChange }) => {
               <span className="logo-letter">S</span>
               <span className="logo-letter accent">x</span>
             </div>
+            <img src="/data-logo-removebg-preview.png" alt="MBSx Data" className="logo-icon" />
           </div>
 
           <div className="intro-text">

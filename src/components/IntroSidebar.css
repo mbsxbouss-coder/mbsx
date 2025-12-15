@@ -73,6 +73,9 @@
 /* Logo */
 .intro-logo {
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .logo-mark {
@@ -80,6 +83,15 @@
   display: flex;
   align-items: baseline;
   gap: 0.125rem;
+}
+
+.intro-logo .logo-icon {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  position: relative;
+  top: -35px;
+  margin-left: -15px;
 }
 
 .logo-letter {

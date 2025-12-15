@@ -19,6 +19,7 @@ const AdminDashboard = () => {
         <div className="admin-sidebar-header">
           <NavLink to="/" className="admin-logo">
             MBSx
+            <img src="/data-logo-removebg-preview.png" alt="MBSx Data" className="admin-logo-icon" />
           </NavLink>
           <span className="admin-badge">{t('admin') || 'Admin'}</span>
         </div>

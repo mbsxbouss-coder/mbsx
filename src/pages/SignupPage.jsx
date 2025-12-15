@@ -113,6 +113,7 @@ const SignupPage = () => {
             <div className="auth-header">
               <Link to="/" className="auth-logo">
                 MBSx
+                <img src="/data-logo-removebg-preview.png" alt="MBSx Data" className="auth-logo-icon" />
               </Link>
               <h1 className="auth-title">{t('checkEmail') || 'Check Your Email'}</h1>
               <p className="auth-subtitle verification-message">
@@ -145,6 +146,7 @@ const SignupPage = () => {
           <div className="auth-header">
             <Link to="/" className="auth-logo">
               MBSx
+              <img src="/data-logo-removebg-preview.png" alt="MBSx Data" className="auth-logo-icon" />
             </Link>
             <h1 className="auth-title">{t('signupTitle')}</h1>
             <p className="auth-subtitle">{t('signupSubtitle')}</p>

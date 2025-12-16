@@ -89,6 +89,13 @@ const ArticleDetail = () => {
           <h1 className="article-title">{article.title[language]}</h1>
         </header>
 
+        {/* Article Image */}
+        {article.image && (
+          <div className={`article-image-container ${isVisible ? 'animate-fade-in-up' : ''}`} style={{ animationDelay: '0.15s' }}>
+            <img src={article.image} alt={article.title[language]} className="article-image" />
+          </div>
+        )}
+
         {/* Article Content */}
         <article className={`article-content ${isVisible ? 'animate-fade-in-up' : ''}`} style={{ animationDelay: '0.2s' }}>
           {paragraphs.map((paragraph, index) => (

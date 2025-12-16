@@ -6,6 +6,64 @@ import './Articles.css'
 // Article data - can be moved to a separate data file later
 const articlesData = [
   {
+    id: 'climate-change-algeria',
+    date: '2024-12-16',
+    readTime: 10,
+    category: 'research',
+    image: '/articl 2 image.jpg',
+    title: {
+      ar: 'التغير المناخي في الجزائر: قراءة معمقة في الأرقام والواقع',
+      en: 'Climate Change in Algeria: An In-Depth Reading of Numbers and Reality',
+      fr: 'Le changement climatique en Algerie: Une lecture approfondie des chiffres et de la realite'
+    },
+    excerpt: {
+      ar: 'في السنوات الأخيرة، أصبح التغير المناخي في الجزائر حقيقة ملموسة تتجلى في ارتفاع درجات الحرارة، تراجع الموارد المائية، واتساع رقعة التصحر.',
+      en: 'In recent years, climate change in Algeria has become a tangible reality manifested in rising temperatures, declining water resources, and expanding desertification.',
+      fr: 'Ces dernieres annees, le changement climatique en Algerie est devenu une realite tangible qui se manifeste par la hausse des temperatures, le declin des ressources en eau et l\'expansion de la desertification.'
+    },
+    content: {
+      ar: `في السنوات الأخيرة، أصبح التغير المناخي في الجزائر حقيقة ملموسة تتجلى في ارتفاع درجات الحرارة، تراجع الموارد المائية، واتساع رقعة التصحر. ما قد يبدو في البداية مجرد أرقام على الورق، يظهر تأثيره بوضوح على حياة المواطنين والاقتصاد الوطني، ويستدعي الانتباه الإعلامي المبني على البيانات.
+
+تشير السجلات المناخية إلى ارتفاع تدريجي في متوسط درجات الحرارة السنوية، وهو ارتفاع يبدو بسيطًا عند النظر إلى الأرقام، لكنه يحمل آثارًا تراكمية ملموسة. فموجات الحر الطويلة والمتكررة تؤثر على الزراعة، وتزيد معدل تبخر المياه من السدود والأنهار، ما يضغط على موارد البلاد المائية. هذه التغيرات تجعل الجزائر ضمن الدول الأكثر تأثرًا بالتحولات المناخية في حوض البحر المتوسط.
+
+بالإضافة إلى ذلك، يشهد نمط التساقطات المطرية تغييرات واضحة، حيث تصبح الأمطار أقل انتظامًا وأكثر تقلبًا. فبدل التساقطات المعتادة، تواجه البلاد فترات جفاف طويلة تليها أمطار غزيرة ومفاجئة تؤدي إلى فيضانات، مما يضعف التربة ويهدد الإنتاج الزراعي التقليدي الذي يعتمد على مياه الأمطار. هذا التغير في نمط الهطول يزيد من هشاشة البيئة الزراعية ويضعف الأمن الغذائي.
+
+تتراجع الموارد المائية الفردية بشكل مستمر نتيجة للنمو السكاني وارتفاع الاستهلاك، إضافة إلى تأثير التغير المناخي. السدود، التي تشكل أحد حلول تخزين المياه، لم تعد كافية لتلبية الاحتياجات، فيما يطرح الاعتماد المتزايد على تحلية مياه البحر تحديات كبيرة من حيث الكلفة الاقتصادية واستهلاك الطاقة. هذه المعطيات تشير إلى ضرورة التفكير في حلول مستدامة ومتعددة المستويات، تجمع بين التخطيط البيئي والإدارة الذكية للموارد.
+
+التصحر يمثل تحديًا إضافيًا، إذ تتعرض الجزائر لتدهور الأراضي الزراعية وتقلص الغطاء النباتي، خاصة في المناطق السهبية. ورغم إطلاق برامج لمكافحة التصحر، يظل قياس فعاليتها صعبًا بسبب نقص المتابعة الرقمية والتحليل المستمر للبيانات. النتيجة هي انخفاض الإنتاج الزراعي وتفاقم المشكلات الاقتصادية والاجتماعية المرتبطة به، بما في ذلك ارتفاع أسعار المواد الغذائية وفقدان فرص العمل في القطاع الفلاحي، الأمر الذي يدفع بعض المواطنين إلى الهجرة الداخلية من المناطق المتضررة.
+
+وفي هذا السياق، يبرز الدور الحيوي لوسائل الإعلام، وخاصة صحافة البيانات، في ربط المواطن بالواقع القائم. فغالبًا ما تكتفي التغطية الإعلامية التقليدية بالحدث المباشر، مثل الفيضانات أو موجات الحر، دون تفسير الأسباب الجذرية أو تقديم أرقام دقيقة تُسهل فهم الاتجاهات طويلة المدى. صحافة البيانات تحول الأرقام إلى قصص مفهومة، وتكشف الاتجاهات الخفية خلف الظواهر، وتمكن صانعي القرار والمواطن على حد سواء من التعامل مع الأزمة بشكل أكثر وعيًا.
+
+التغير المناخي في الجزائر ليس مجرد توقع مستقبلي، بل حقيقة قائمة يمكن قياسها وتحليلها. التعامل معه يتطلب أكثر من حلول تقنية، فهو يحتاج إلى وعي جماعي وإعلام يعتمد على البيانات، يربط بين القرار والمعلومة، ويحول الأرقام إلى أداة تغيير حقيقية. عندما تصبح الأرقام لغة الإعلام، يتحول الوعي إلى قوة فعلية يمكنها حماية البيئة وتعزيز التنمية المستدامة.`,
+      en: `In recent years, climate change in Algeria has become a tangible reality manifested in rising temperatures, declining water resources, and expanding desertification. What may initially appear as mere numbers on paper clearly shows its impact on citizens' lives and the national economy, calling for data-driven media attention.
+
+Climate records indicate a gradual rise in average annual temperatures, a rise that seems simple when looking at the numbers, but carries tangible cumulative effects. Long and frequent heat waves affect agriculture and increase the rate of water evaporation from dams and rivers, putting pressure on the country's water resources. These changes make Algeria among the countries most affected by climate transformations in the Mediterranean basin.
+
+Additionally, rainfall patterns are undergoing clear changes, with rain becoming less regular and more volatile. Instead of normal precipitation, the country faces long periods of drought followed by heavy, sudden rains leading to floods, weakening the soil and threatening traditional agricultural production that depends on rainwater. This change in precipitation patterns increases the fragility of the agricultural environment and weakens food security.
+
+Individual water resources are continuously declining due to population growth and increased consumption, in addition to the impact of climate change. Dams, which represent one of the water storage solutions, are no longer sufficient to meet needs, while the increasing reliance on seawater desalination poses significant challenges in terms of economic cost and energy consumption. These data indicate the need to think about sustainable, multi-level solutions that combine environmental planning with smart resource management.
+
+Desertification represents an additional challenge, as Algeria faces degradation of agricultural land and shrinking vegetation cover, especially in steppe areas. Despite launching programs to combat desertification, measuring their effectiveness remains difficult due to the lack of digital monitoring and continuous data analysis. The result is declining agricultural production and worsening economic and social problems associated with it, including rising food prices and loss of jobs in the agricultural sector, which drives some citizens to internal migration from affected areas.
+
+In this context, the vital role of media, especially data journalism, emerges in connecting citizens with the existing reality. Traditional media coverage often settles for the immediate event, such as floods or heat waves, without explaining the root causes or providing accurate figures that facilitate understanding long-term trends. Data journalism transforms numbers into understandable stories, reveals hidden trends behind phenomena, and enables both decision-makers and citizens to deal with the crisis more consciously.
+
+Climate change in Algeria is not just a future prediction, but an existing reality that can be measured and analyzed. Dealing with it requires more than technical solutions; it needs collective awareness and data-driven media that connects decisions to information and transforms numbers into a real tool for change. When numbers become the language of media, awareness becomes an actual force capable of protecting the environment and promoting sustainable development.`,
+      fr: `Ces dernieres annees, le changement climatique en Algerie est devenu une realite tangible qui se manifeste par la hausse des temperatures, le declin des ressources en eau et l'expansion de la desertification. Ce qui peut initialement sembler de simples chiffres sur papier montre clairement son impact sur la vie des citoyens et l'economie nationale, appelant a une attention mediatique basee sur les donnees.
+
+Les registres climatiques indiquent une augmentation progressive des temperatures annuelles moyennes, une augmentation qui semble simple en regardant les chiffres, mais qui porte des effets cumulatifs tangibles. Les vagues de chaleur longues et frequentes affectent l'agriculture et augmentent le taux d'evaporation de l'eau des barrages et des rivieres, exercant une pression sur les ressources en eau du pays. Ces changements placent l'Algerie parmi les pays les plus touches par les transformations climatiques dans le bassin mediterraneen.
+
+De plus, les regimes pluviometriques subissent des changements evidents, les pluies devenant moins regulieres et plus volatiles. Au lieu des precipitations normales, le pays fait face a de longues periodes de secheresse suivies de pluies soudaines et abondantes entrainant des inondations, affaiblissant le sol et menacant la production agricole traditionnelle qui depend des eaux de pluie. Ce changement dans les regimes de precipitation augmente la fragilite de l'environnement agricole et affaiblit la securite alimentaire.
+
+Les ressources en eau individuelles diminuent continuellement en raison de la croissance demographique et de l'augmentation de la consommation, en plus de l'impact du changement climatique. Les barrages, qui representent l'une des solutions de stockage de l'eau, ne sont plus suffisants pour repondre aux besoins, tandis que le recours croissant au dessalement de l'eau de mer pose des defis importants en termes de cout economique et de consommation d'energie. Ces donnees indiquent la necessite de reflechir a des solutions durables et multi-niveaux qui combinent la planification environnementale avec une gestion intelligente des ressources.
+
+La desertification represente un defi supplementaire, car l'Algerie fait face a la degradation des terres agricoles et au retrecissement du couvert vegetal, en particulier dans les zones steppiques. Malgre le lancement de programmes de lutte contre la desertification, mesurer leur efficacite reste difficile en raison du manque de suivi numerique et d'analyse continue des donnees. Le resultat est une baisse de la production agricole et une aggravation des problemes economiques et sociaux qui y sont associes, notamment la hausse des prix des denrees alimentaires et la perte d'emplois dans le secteur agricole, ce qui pousse certains citoyens a migrer en interne depuis les zones touchees.
+
+Dans ce contexte, le role vital des medias, en particulier le journalisme de donnees, emerge pour connecter les citoyens a la realite existante. La couverture mediatique traditionnelle se contente souvent de l'evenement immediat, comme les inondations ou les vagues de chaleur, sans expliquer les causes profondes ni fournir des chiffres precis qui facilitent la comprehension des tendances a long terme. Le journalisme de donnees transforme les chiffres en histoires comprehensibles, revele les tendances cachees derriere les phenomenes et permet aux decideurs comme aux citoyens de faire face a la crise de maniere plus consciente.
+
+Le changement climatique en Algerie n'est pas seulement une prediction future, mais une realite existante qui peut etre mesuree et analysee. Y faire face necessite plus que des solutions techniques; il faut une prise de conscience collective et des medias bases sur les donnees qui relient les decisions a l'information et transforment les chiffres en un veritable outil de changement. Lorsque les chiffres deviennent le langage des medias, la prise de conscience devient une force reelle capable de proteger l'environnement et de promouvoir le developpement durable.`
+    }
+  },
+  {
     id: 'from-data-to-decision',
     date: '2024-12-15',
     readTime: 8,
@@ -134,28 +192,35 @@ const Articles = () => {
             <Link
               key={article.id}
               to={`/knowledge-center/articles/${article.id}`}
-              className={`article-card ${isVisible ? 'animate-fade-in-up' : ''}`}
+              className={`article-card ${article.image ? 'has-image' : ''} ${isVisible ? 'animate-fade-in-up' : ''}`}
               style={{ animationDelay: `${0.1 + index * 0.1}s` }}
             >
-              <div className="article-card-header">
-                <span className="article-category">{getCategoryLabel(article.category)}</span>
-                <span className="article-date">{formatDate(article.date)}</span>
-              </div>
+              {article.image && (
+                <div className="article-card-image">
+                  <img src={article.image} alt={article.title[language]} />
+                </div>
+              )}
+              <div className="article-card-content">
+                <div className="article-card-header">
+                  <span className="article-category">{getCategoryLabel(article.category)}</span>
+                  <span className="article-date">{formatDate(article.date)}</span>
+                </div>
 
-              <h2 className="article-card-title">{article.title[language]}</h2>
-              <p className="article-card-excerpt">{article.excerpt[language]}</p>
+                <h2 className="article-card-title">{article.title[language]}</h2>
+                <p className="article-card-excerpt">{article.excerpt[language]}</p>
 
-              <div className="article-card-footer">
-                <span className="article-read-time">
-                  {article.readTime} {t('minRead')}
-                </span>
-                <span className="article-read-more">
-                  {t('readMore')}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
-                </span>
+                <div className="article-card-footer">
+                  <span className="article-read-time">
+                    {article.readTime} {t('minRead')}
+                  </span>
+                  <span className="article-read-more">
+                    {t('readMore')}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </Link>
           ))}

@@ -93,6 +93,26 @@
   line-height: 1.3;
 }
 
+/* Article Image */
+.article-image-container {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  opacity: 0;
+}
+
+.article-image-container.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.article-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
 /* Article Content */
 .article-content {
   max-width: 800px;

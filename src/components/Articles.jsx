@@ -68,6 +68,7 @@ Le changement climatique en Algerie n'est pas seulement une prediction future, m
     date: '2024-12-15',
     readTime: 8,
     category: 'analysis',
+    image: '/articl 1.jpg',
     title: {
       ar: 'من البيانات إلى القرار: نحو نموذج صحافة جديدة في العالم العربي',
       en: 'From Data to Decision: Towards a New Journalism Model in the Arab World',

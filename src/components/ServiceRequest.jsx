@@ -175,12 +175,12 @@ const ServiceRequest = () => {
                   <input
                     type="text"
                     name="institutionName"
-                    className="form-input"
+                    className={`form-input ${errors.institutionName ? 'input-error' : ''}`}
                     value={formData.institutionName}
                     onChange={handleChange}
-                    required
                     disabled={isSubmitting}
                   />
+                  {errors.institutionName && <span className="field-error">{errors.institutionName}</span>}
                 </div>
 
                 <div className="form-group">
@@ -193,7 +193,6 @@ const ServiceRequest = () => {
                         value="media"
                         checked={formData.sector === 'media'}
                         onChange={handleChange}
-                        required
                         disabled={isSubmitting}
                       />
                       <span>{t('media')}</span>
@@ -210,16 +209,16 @@ const ServiceRequest = () => {
                       <span>{t('economic')}</span>
                     </label>
                   </div>
+                  {errors.sector && <span className="field-error">{errors.sector}</span>}
                 </div>
 
                 <div className="form-group">
                   <label className="form-label">{t('serviceType')}</label>
                   <select
                     name="serviceType"
-                    className="form-select"
+                    className={`form-select ${errors.serviceType ? 'input-error' : ''}`}
                     value={formData.serviceType}
                     onChange={handleChange}
-                    required
                     disabled={isSubmitting}
                   >
                     <option value="">Select a service</option>
@@ -227,19 +226,20 @@ const ServiceRequest = () => {
                     <option value="dashboard">{t('dashboard')}</option>
                     <option value="consultation">{t('consultation')}</option>
                   </select>
+                  {errors.serviceType && <span className="field-error">{errors.serviceType}</span>}
                 </div>
 
                 <div className="form-group">
                   <label className="form-label">{t('description')}</label>
                   <textarea
                     name="description"
-                    className="form-textarea"
+                    className={`form-textarea ${errors.description ? 'input-error' : ''}`}
                     placeholder={t('descriptionPlaceholder')}
                     value={formData.description}
                     onChange={handleChange}
-                    required
                     disabled={isSubmitting}
                   />
+                  {errors.description && <span className="field-error">{errors.description}</span>}
                 </div>
 
                 <div className="form-row">
@@ -248,23 +248,24 @@ const ServiceRequest = () => {
                     <input
                       type="email"
                       name="email"
-                      className="form-input"
+                      className={`form-input ${errors.email ? 'input-error' : ''}`}
                       value={formData.email}
                       onChange={handleChange}
-                      required
                       disabled={isSubmitting}
                     />
+                    {errors.email && <span className="field-error">{errors.email}</span>}
                   </div>
                   <div className="form-group">
                     <label className="form-label">{t('phone')}</label>
                     <input
                       type="tel"
                       name="phone"
-                      className="form-input"
+                      className={`form-input ${errors.phone ? 'input-error' : ''}`}
                       value={formData.phone}
                       onChange={handleChange}
                       disabled={isSubmitting}
                     />
+                    {errors.phone && <span className="field-error">{errors.phone}</span>}
                   </div>
                 </div>
 

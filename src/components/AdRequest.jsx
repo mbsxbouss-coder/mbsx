@@ -2,7 +2,11 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useLanguage } from '../App'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
+import { useFormValidation } from '../hooks/useFormValidation'
+import { adRequestSchema } from '../validation/schemas'
 import './AdRequest.css'
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 
 const AdRequest = () => {
   const { t } = useLanguage()
@@ -21,6 +25,7 @@ const AdRequest = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState('')
+  const { errors, validate, clearError } = useFormValidation(adRequestSchema)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -48,34 +53,60 @@ const AdRequest = () => {
           ? [...prev.adTypes, value]
           : prev.adTypes.filter(t => t !== value)
       }))
+      clearError('adTypes')
     } else if (type === 'checkbox') {
       setFormData(prev => ({ ...prev, [name]: checked }))
     } else {
       setFormData(prev => ({ ...prev, [name]: value }))
+      clearError(name)
     }
     setError('')
   }
 
+  const notifyAdmin = async (data) => {
+    try {
+      await fetch(`${SUPABASE_URL}/functions/v1/notify-admin-ad`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+    } catch (err) {
+      console.warn('Admin notification failed:', err)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsSubmitting(true)
     setError('')
 
+    // Validate form
+    const validationResult = validate(formData)
+    if (!validationResult.success) {
+      return
+    }
+
+    setIsSubmitting(true)
+
     try {
+      const requestData = {
+        user_id: user?.id || null,
+        institution_name: formData.institutionName,
+        sector: formData.sector,
+        ad_types: formData.adTypes,
+        ad_details: formData.adDetails,
+        email: formData.email,
+        phone: formData.phone || null,
+        boost_ad: formData.boostAd
+      }
+
       const { error: insertError } = await supabase
         .from('ad_requests')
-        .insert([{
-          user_id: user?.id || null,
-          institution_name: formData.institutionName,
-          sector: formData.sector,
-          ad_types: formData.adTypes,
-          ad_details: formData.adDetails,
-          email: formData.email,
-          phone: formData.phone || null,
-          boost_ad: formData.boostAd
-        }])
+        .insert([requestData])
 
       if (insertError) throw insertError
+
+      // Notify admin (non-blocking)
+      notifyAdmin(requestData)
 
       setIsSuccess(true)
 
@@ -152,12 +183,12 @@ const AdRequest = () => {
                     <input
                       type="text"
                       name="institutionName"
-                      className="form-input"
+                      className={`form-input ${errors.institutionName ? 'input-error' : ''}`}
                       value={formData.institutionName}
                       onChange={handleChange}
-                      required
                       disabled={isSubmitting}
                     />
+                    {errors.institutionName && <span className="field-error">{errors.institutionName}</span>}
                   </div>
 
                   <div className="form-group">
@@ -165,13 +196,13 @@ const AdRequest = () => {
                     <input
                       type="text"
                       name="sector"
-                      className="form-input"
+                      className={`form-input ${errors.sector ? 'input-error' : ''}`}
                       placeholder="e.g., Media, Finance, Technology"
                       value={formData.sector}
                       onChange={handleChange}
-                      required
                       disabled={isSubmitting}
                     />
+                    {errors.sector && <span className="field-error">{errors.sector}</span>}
                   </div>
 
                   <div className="form-group">
@@ -179,12 +210,12 @@ const AdRequest = () => {
                     <input
                       type="email"
                       name="email"
-                      className="form-input"
+                      className={`form-input ${errors.email ? 'input-error' : ''}`}
                       value={formData.email}
                       onChange={handleChange}
-                      required
                       disabled={isSubmitting}
                     />
+                    {errors.email && <span className="field-error">{errors.email}</span>}
                   </div>
 
                   <div className="form-group">
@@ -192,11 +223,12 @@ const AdRequest = () => {
                     <input
                       type="tel"
                       name="phone"
-                      className="form-input"
+                      className={`form-input ${errors.phone ? 'input-error' : ''}`}
                       value={formData.phone}
                       onChange={handleChange}
                       disabled={isSubmitting}
                     />
+                    {errors.phone && <span className="field-error">{errors.phone}</span>}
                   </div>
                 </div>
 
@@ -219,19 +251,20 @@ const AdRequest = () => {
                         </label>
                       ))}
                     </div>
+                    {errors.adTypes && <span className="field-error">{errors.adTypes}</span>}
                   </div>
 
                   <div className="form-group">
                     <label className="form-label">{t('adDetails')}</label>
                     <textarea
                       name="adDetails"
-                      className="form-textarea"
+                      className={`form-textarea ${errors.adDetails ? 'input-error' : ''}`}
                       placeholder={t('adDetailsPlaceholder')}
                       value={formData.adDetails}
                       onChange={handleChange}
-                      required
                       disabled={isSubmitting}
                     />
+                    {errors.adDetails && <span className="field-error">{errors.adDetails}</span>}
                   </div>
 
                   <label className="form-checkbox boost-option">

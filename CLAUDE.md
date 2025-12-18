@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-MBSx Platform - A multilingual (English, French, Arabic with RTL support) React-based data journalism agency website built with Vite.
+MBSx Platform - A multilingual (English, French, Arabic with RTL support) React-based data journalism institution website built with Vite.
 
 ## Commands
 

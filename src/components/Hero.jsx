@@ -49,7 +49,7 @@ const Hero = () => {
         <div className="hero-content">
           <div className="hero-badge animate-fade-in-up stagger-1">
             <span className="badge-dot" />
-            <span>Data Journalism Agency</span>
+            <span>Data Journalism Institution</span>
           </div>
 
           <h1 className="hero-title animate-fade-in-up stagger-2">

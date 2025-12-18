@@ -8,7 +8,7 @@ import './LoginPage.css'
 const LoginPage = () => {
   const { t, language } = useLanguage()
   const navigate = useNavigate()
-  const { signIn, signInWithGoogle, isAuthenticated, loading: authLoading } = useAuth()
+  const { signIn, isAuthenticated, loading: authLoading } = useAuth()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -63,16 +63,6 @@ const LoginPage = () => {
         localStorage.setItem('mbsx-remember', 'true')
       }
       navigate('/')
-    }
-  }
-
-  const handleGoogleLogin = async () => {
-    setIsLoading(true)
-    setError('')
-    const { error: googleError } = await signInWithGoogle()
-    if (googleError) {
-      setError(googleError.message)
-      setIsLoading(false)
     }
   }
 
@@ -163,18 +153,6 @@ const LoginPage = () => {
               )}
             </button>
 
-            <div className="auth-divider">
-              <span>{t('orContinueWith') || 'or continue with'}</span>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleGoogleLogin}
-              className="btn btn-secondary auth-social-btn"
-              disabled={isLoading}
-            >
-              {t('continueWithGoogle') || 'Continue with Google'}
-            </button>
           </form>
 
           <div className="auth-footer">

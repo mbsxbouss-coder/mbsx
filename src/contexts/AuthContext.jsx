@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 
 const AuthContext = createContext()
@@ -16,42 +16,82 @@ export const AuthProvider = ({ children }) => {
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const initialLoadDone = useRef(false)
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession()
-      .then(({ data: { session }, error }) => {
-        if (error) {
-          console.error('Session error:', error)
+    let isMounted = true
+
+    const initializeAuth = async () => {
+      try {
+        // Get initial session
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+
+        if (!isMounted) return
+
+        if (sessionError) {
+          console.error('Session error:', sessionError)
           setLoading(false)
+          initialLoadDone.current = true
           return
         }
-        setUser(session?.user ?? null)
-        if (session?.user) {
-          fetchProfile(session.user.id)
-        } else {
-          setLoading(false)
-        }
-      })
-      .catch((err) => {
-        console.error('Failed to get session:', err)
-        setLoading(false)
-      })
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
         setUser(session?.user ?? null)
+
         if (session?.user) {
           await fetchProfile(session.user.id)
+        }
+
+        if (isMounted) {
+          setLoading(false)
+          initialLoadDone.current = true
+        }
+      } catch (err) {
+        console.error('Failed to get session:', err)
+        if (isMounted) {
+          setLoading(false)
+          initialLoadDone.current = true
+        }
+      }
+    }
+
+    // Initialize auth
+    initializeAuth()
+
+    // Listen for auth changes (only update after initial load)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (!isMounted) return
+
+        setUser(session?.user ?? null)
+
+        if (session?.user) {
+          // Only show loading on subsequent auth changes if initial load is done
+          if (initialLoadDone.current) {
+            await fetchProfile(session.user.id)
+          }
         } else {
           setProfile(null)
-          setLoading(false)
+          if (initialLoadDone.current) {
+            setLoading(false)
+          }
         }
       }
     )
 
-    return () => subscription.unsubscribe()
+    // Failsafe: ensure loading is set to false after 5 seconds
+    const timeout = setTimeout(() => {
+      if (isMounted && loading) {
+        console.warn('Auth loading timeout - forcing loading to false')
+        setLoading(false)
+        initialLoadDone.current = true
+      }
+    }, 5000)
+
+    return () => {
+      isMounted = false
+      subscription.unsubscribe()
+      clearTimeout(timeout)
+    }
   }, [])
 
   const fetchProfile = async (userId) => {
@@ -68,7 +108,7 @@ export const AuthProvider = ({ children }) => {
           // Create profile if it doesn't exist
           const { data: userData } = await supabase.auth.getUser()
           if (userData?.user) {
-            const { data: newProfile } = await supabase
+            const { data: newProfile, error: insertError } = await supabase
               .from('profiles')
               .insert({
                 id: userData.user.id,
@@ -77,7 +117,12 @@ export const AuthProvider = ({ children }) => {
               })
               .select()
               .single()
-            setProfile(newProfile)
+
+            if (insertError) {
+              console.error('Error creating profile:', insertError)
+            } else {
+              setProfile(newProfile)
+            }
           }
         } else {
           console.error('Error fetching profile:', error)
@@ -87,9 +132,8 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (err) {
       console.error('Error fetching profile:', err)
-    } finally {
-      setLoading(false)
     }
+    // Note: loading state is managed by the caller (initializeAuth)
   }
 
   const signUp = async ({ email, password, fullName }) => {

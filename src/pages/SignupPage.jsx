@@ -8,7 +8,7 @@ import './LoginPage.css'
 const SignupPage = () => {
   const { t, language } = useLanguage()
   const navigate = useNavigate()
-  const { signUp, signInWithGoogle, isAuthenticated, loading: authLoading } = useAuth()
+  const { signUp, isAuthenticated, loading: authLoading } = useAuth()
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -86,16 +86,6 @@ const SignupPage = () => {
       }
     } else {
       setShowVerification(true)
-    }
-  }
-
-  const handleGoogleSignup = async () => {
-    setIsLoading(true)
-    setError('')
-    const { error: googleError } = await signInWithGoogle()
-    if (googleError) {
-      setError(googleError.message)
-      setIsLoading(false)
     }
   }
 
@@ -258,18 +248,6 @@ const SignupPage = () => {
               )}
             </button>
 
-            <div className="auth-divider">
-              <span>{t('orContinueWith') || 'or continue with'}</span>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleGoogleSignup}
-              className="btn btn-secondary auth-social-btn"
-              disabled={isLoading}
-            >
-              {t('continueWithGoogle') || 'Continue with Google'}
-            </button>
           </form>
 
           <div className="auth-footer">

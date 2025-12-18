@@ -1,5 +1,7 @@
 import { supabase } from '../lib/supabase'
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+
 export const requestsService = {
   // Service Requests
   async createServiceRequest(data) {
@@ -9,7 +11,43 @@ export const requestsService = {
       .select()
       .single()
     if (error) throw error
+
+    // Notify admin via Edge Function (non-blocking)
+    this.notifyAdmin(data).catch(err => {
+      console.warn('Admin notification failed:', err)
+    })
+
     return result
+  },
+
+  // Notify admin of new service request
+  async notifyAdmin(data) {
+    try {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/notify-admin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          institution_name: data.institution_name,
+          sector: data.sector,
+          service_type: data.service_type,
+          description: data.description,
+          email: data.email,
+          phone: data.phone || null,
+        }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to notify admin')
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Error notifying admin:', error)
+      throw error
+    }
   },
 
   async getServiceRequests(filter = 'all') {

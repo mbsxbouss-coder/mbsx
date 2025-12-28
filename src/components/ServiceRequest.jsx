@@ -18,7 +18,8 @@ const ServiceRequest = () => {
     serviceType: '',
     description: '',
     email: '',
-    phone: ''
+    phone: '',
+    agreeTerms: false
   })
   const { isSubmitting, guardedSubmit } = useSubmitGuard()
   const { errors, validate, clearError } = useFormValidation(serviceRequestSchema)
@@ -43,8 +44,11 @@ const ServiceRequest = () => {
   }, [])
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+    const { name, value, type, checked } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }))
     setError('')
     clearError(name)
   }
@@ -52,6 +56,12 @@ const ServiceRequest = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+
+    // Check terms agreement
+    if (!formData.agreeTerms) {
+      setError(t('agreeTermsError'))
+      return
+    }
 
     // Validate form data
     const validationResult = validate(formData)
@@ -86,7 +96,8 @@ const ServiceRequest = () => {
           serviceType: '',
           description: '',
           email: '',
-          phone: ''
+          phone: '',
+          agreeTerms: false
         })
       }, 4000)
     } else {
@@ -267,6 +278,20 @@ const ServiceRequest = () => {
                     />
                     {errors.phone && <span className="field-error">{errors.phone}</span>}
                   </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-checkbox">
+                    <input
+                      type="checkbox"
+                      name="agreeTerms"
+                      checked={formData.agreeTerms}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      required
+                    />
+                    <span>{t('agreeToPrivacyAndTerms')}</span>
+                  </label>
                 </div>
 
                 <button

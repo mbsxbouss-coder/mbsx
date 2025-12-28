@@ -187,6 +187,32 @@
   animation: underline 0.8s ease-out 1s forwards;
 }
 
+/* Arabic hero highlight layout */
+.hero-highlight-line1,
+.hero-highlight-line2 {
+  display: inline;
+}
+
+/* Desktop: Stack الإحصاء on new line centered */
+@media (min-width: 769px) {
+  .hero-highlight-line1 {
+    display: block;
+  }
+
+  .hero-highlight-line2 {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Mobile: Keep on same line */
+@media (max-width: 768px) {
+  .hero-highlight-line2::before {
+    content: ' ';
+  }
+}
+
 @keyframes underline {
   to { transform: scaleX(1); }
 }

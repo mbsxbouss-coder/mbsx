@@ -226,12 +226,10 @@ const SignupPage = () => {
                   checked={formData.agreeTerms}
                   onChange={handleChange}
                   disabled={isLoading}
+                  required
                 />
                 <span>
-                  {t('agreeToTerms')}{' '}
-                  <Link to="/terms" className="auth-link">
-                    {t('termsOfService')}
-                  </Link>
+                  {t('agreeToPrivacyAndTerms')}
                 </span>
               </label>
             </div>

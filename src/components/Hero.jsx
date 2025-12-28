@@ -55,7 +55,16 @@ const Hero = () => {
           <h1 className="hero-title animate-fade-in-up stagger-2">
             {t('heroTitle')}
             <br />
-            <span className="hero-highlight">{t('heroTitleHighlight')}</span>
+            <span className="hero-highlight">
+              {language === 'ar' ? (
+                <>
+                  <span className="hero-highlight-line1">الإعلام | الأعمال</span>
+                  <span className="hero-highlight-line2">الإحصاء</span>
+                </>
+              ) : (
+                t('heroTitleHighlight')
+              )}
+            </span>
           </h1>
 
           <p className="hero-subtitle animate-fade-in-up stagger-3">

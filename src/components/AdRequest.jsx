@@ -20,7 +20,8 @@ const AdRequest = () => {
     adDetails: '',
     email: '',
     phone: '',
-    boostAd: false
+    boostAd: false,
+    agreeTerms: false
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -79,6 +80,12 @@ const AdRequest = () => {
     e.preventDefault()
     setError('')
 
+    // Check terms agreement
+    if (!formData.agreeTerms) {
+      setError(t('agreeTermsError'))
+      return
+    }
+
     // Validate form
     const validationResult = validate(formData)
     if (!validationResult.success) {
@@ -120,7 +127,8 @@ const AdRequest = () => {
           adDetails: '',
           email: '',
           phone: '',
-          boostAd: false
+          boostAd: false,
+          agreeTerms: false
         })
       }, 4000)
     } catch (err) {
@@ -282,6 +290,21 @@ const AdRequest = () => {
                     </span>
                   </label>
                 </div>
+              </div>
+
+              <div className="form-group" style={{ gridColumn: '1 / -1', marginTop: '1rem' }}>
+                <label className="form-checkbox">
+                  <input
+                    type="checkbox"
+                    name="agreeTerms"
+                    checked={formData.agreeTerms}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    required
+                  />
+                  <span className="checkbox-custom" />
+                  <span>{t('agreeToPrivacyAndTerms')}</span>
+                </label>
               </div>
 
               <button

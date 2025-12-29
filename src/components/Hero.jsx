@@ -61,8 +61,16 @@ const Hero = () => {
                   <span className="hero-highlight-line1">الإعلام | الأعمال</span>
                   <span className="hero-highlight-line2">الإحصاء</span>
                 </>
+              ) : language === 'en' ? (
+                <>
+                  <span className="hero-highlight-line1">Media | Business</span>
+                  <span className="hero-highlight-line2">Statistics</span>
+                </>
               ) : (
-                t('heroTitleHighlight')
+                <>
+                  <span className="hero-highlight-line1">Médias | Affaires</span>
+                  <span className="hero-highlight-line2">Statistiques</span>
+                </>
               )}
             </span>
           </h1>

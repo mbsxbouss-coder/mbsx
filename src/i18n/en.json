@@ -10,7 +10,7 @@
   "dashboards": "Dashboards",
   "training": "Training",
   "heroTitle": "Data Journalism",
-  "heroTitleHighlight": "Media That Inspires\nDecisions That Shape",
+  "heroTitleHighlight": "Media | Business\nStatistics",
   "heroSubtitle": "Transforming complex data into compelling narratives. We empower media and economic institutions with actionable insights, custom reports, and strategic consulting.",
   "exploreServices": "Explore Services",
   "requestConsultation": "Request Consultation",
@@ -468,5 +468,6 @@
   "tcGoverningLawTitle": "Governing Law",
   "tcGoverningLawText": "These Terms and Conditions shall be governed by and construed in accordance with the laws of Algeria. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts of Algeria.",
   "tcContactTitle": "Contact Us",
-  "tcContactText": "If you have any questions about these Terms and Conditions, please contact us at:"
+  "tcContactText": "If you have any questions about these Terms and Conditions, please contact us at:",
+  "location": "Algeria / Chlef"
 }

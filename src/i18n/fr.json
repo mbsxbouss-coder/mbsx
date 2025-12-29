@@ -10,7 +10,7 @@
   "dashboards": "Tableaux de Bord",
   "training": "Formation",
   "heroTitle": "Journalisme de Donnees",
-  "heroTitleHighlight": "Medias Qui Inspirent\nDecisions Qui Faconnent",
+  "heroTitleHighlight": "Médias | Affaires\nStatistiques",
   "heroSubtitle": "Transformer des donnees complexes en recits captivants. Nous donnons aux institutions mediatiques et economiques des informations exploitables.",
   "exploreServices": "Explorer les Services",
   "requestConsultation": "Demander une Consultation",
@@ -468,5 +468,6 @@
   "tcGoverningLawTitle": "Loi Applicable",
   "tcGoverningLawText": "Ces Conditions Generales seront regies et interpretees conformement aux lois de l'Algerie. Tout litige decoulant de ces conditions sera soumis a la competence exclusive des tribunaux d'Algerie.",
   "tcContactTitle": "Nous Contacter",
-  "tcContactText": "Si vous avez des questions concernant ces Conditions Generales, veuillez nous contacter a:"
+  "tcContactText": "Si vous avez des questions concernant ces Conditions Generales, veuillez nous contacter a:",
+  "location": "Algérie / Chlef"
 }

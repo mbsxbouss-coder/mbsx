@@ -98,7 +98,7 @@ const AboutUs = () => {
           <div className={`ceo-section ${isVisible ? 'animate-fade-in-up' : ''}`} style={{ animationDelay: '0.8s' }}>
             <div className="ceo-card">
               <div className="ceo-image-wrapper">
-                <img src="/ceo marwa.jpeg" alt={t('ceoName')} className="ceo-image" />
+                <img src="/mara.jpg" alt={t('ceoName')} className="ceo-image" />
                 <div className="ceo-image-overlay" />
               </div>
               <div className="ceo-info">
